@@ -27,7 +27,7 @@
     --text: #f7f5eb;
     --muted: #adadad;
     --border: #444444;
-    --accent: #f86193;
+    --accent: #fc709e;
 }
 
 * {
@@ -45,6 +45,9 @@ body {
     line-height: 1.5;
     letter-spacing: 0.3px;
     font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 body::before {
@@ -55,6 +58,10 @@ body::before {
     opacity: 0.75;
     pointer-events: none;
     z-index: 0;
+}
+
+footer a {
+    color: var(--muted);
 }
 
 body > * {
@@ -70,6 +77,8 @@ body > * {
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    flex: 1;
+    width: 100%;
 }
 
 footer {
@@ -159,14 +168,23 @@ footer {
     align-content: flex-end;
 }
 
+.blog-btn {
+    background: var(--muted);
+}
+
 .hero-nav button,
 .hero-nav .cv-btn {
+    background: var(--text);
+}
+
+.hero-nav button,
+.hero-nav .cv-btn,
+.hero-nav .blog-btn {
     font-family: "Arial";
     display: inline-block;
-    padding: 0.5rem 0.25rem;
-    font-size: clamp(0.75rem, 1.1vw, 1rem);
+    padding: 0.5rem 0.5rem;
+    font-size: clamp(0.6rem, 1.1vw, 1rem);
     text-transform: uppercase;
-    background: var(--text);
     color: var(--surface);
     font-weight: 800;
     letter-spacing: 1px;
@@ -180,7 +198,8 @@ footer {
 }
 
 .hero-nav button:hover,
-.hero-nav .cv-btn:hover {
+.hero-nav .cv-btn:hover,
+.hero-nav .blog-btn:hover {
     background: var(--accent);
     transform: translateY(-3px);
     box-shadow: 3px 3px 0 var(--accent);
@@ -194,7 +213,7 @@ footer {
 }
 
 .subtitle {
-    font-size: clamp(0.75rem, 1.1vw, 1rem);
+    font-size: clamp(0.5rem, 1.1vw, 1rem);
     color: var(--surface);
     font-weight: 800;
     margin: 0;
@@ -238,6 +257,12 @@ footer {
 .section-title {
     font-size: 4rem;
     margin: 0;
+}
+
+.project-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
 }
 
 .project-grid {
@@ -297,19 +322,6 @@ footer {
     inset: 0;
     z-index: -1;
     transform-origin: center;
-}
-
-.project-info h2 a {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    font-size: 2rem;
-    background: var(--text);
-    color: var(--surface);
-    font-weight: 800;
-    letter-spacing: 1px;
-    line-height: 1;
-    text-decoration: none;
-    transition: background 1s ease, box-shadow 1s ease;
 }
 
 .project-info h2 a:hover {
@@ -378,7 +390,6 @@ footer {
     margin: 0 1rem 0.5rem 1rem;
     font-family: 'Lato', sans-serif;
     font-size: 0.8rem;
-    color: rgb(252, 206, 57);
 }
 
 .description {
@@ -387,7 +398,7 @@ footer {
 }
 
 .project-meta {
-    display: inline-flex;
+    display: inline-block;
     align-items: center;
     gap: 4px;
     font-size: 0.9em;
@@ -442,13 +453,12 @@ footer {
         align-items: flex-start;
     }
 
-    .hero-nav {
+    .hide {
         display: none;
-        flex-wrap: wrap;
-        gap: 0.4rem;
     }
 
     .hero-tags {
+        align-self: flex-start;
         margin: 0;
         gap: 0.3rem;
         max-width: 100%;
