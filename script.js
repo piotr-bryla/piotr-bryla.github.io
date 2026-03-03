@@ -2,8 +2,11 @@ const projects = {
     frsh: {
         title: "F.R.S.H.",
         description: "Boomer shooter about a butcher robot in a radioactive wasteland.",
-        metric: "Over 150 downloads, 3 voluntary donations.",
-        logo: "images/frsh.gif",
+        metric: "Over 150 downloads.",
+        logo: {
+            static: "images/frsh.png",
+            animated: "images/frsh.gif"
+        },
         link: "https://fikou.itch.io/frsh",
         groupSize: 1,
         engine: "Unity",
@@ -13,16 +16,19 @@ const projects = {
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Combat Design", class: "tag-combat" },
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
             { label: "Level Design", class: "tag-level" },
             { label: "SFX", class: "tag-sound" },
         ]
     },
     ss13: {
         title: "TGStation 13",
-        description: "Open-Source multiplayer RPG about a death-trap masquerading as a space station.",
-        metric: "Codebase with over 1.5k unique contributors and 60k pull requests.",
-        logo: "images/ss13.gif",
+        description: "Open-Source multiplayer social deduction roleplaying game set on a space station.",
+        metric: "One of the largest open-source game projects, running for over 15 years with 60k pull requests.",
+        logo: {
+            static: "images/ss13.png",
+            animated: "images/ss13.gif"
+        },
         link: "https://tgstation13.org/",
         groupSize: "30~",
         engine: "BYOND",
@@ -30,15 +36,17 @@ const projects = {
         role: "OSS Contributor, Codebase Maintainer",
         tags: [
             { label: "Project Maintainer", class: "tag-maint" },
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
             { label: "Level Design", class: "tag-level" },
         ]
     },
     countdashula: {
         title: "Count Dashula",
         description: "2D platformer about a vampire dashing away from the Sun.",
-        metric: "Over 60 downloads.",
-        logo: "images/cnt.gif",
+        logo: {
+            static: "images/cnt.png",
+            animated: "images/cnt.gif"
+        },
         link: "https://fikou.itch.io/count-dashula",
         groupSize: 1,
         engine: "Godot",
@@ -52,8 +60,11 @@ const projects = {
     },
     voita: {
         title: "Voita",
-        description: "Mobile stealth reverse horror game about an alien ambushing the crew of a space station.",
-        logo: "images/voita.gif",
+        description: "Mobile stealth horror game where you play as the monster hunting the crew of a space station.",
+        logo: {
+            static: "images/voita.png",
+            animated: "images/voita.gif"
+        },
         link: "https://futuregames.itch.io/voita",
         groupSize: 13,
         engine: "Unity",
@@ -61,14 +72,16 @@ const projects = {
         school: "Futuregames Warsaw",
         role: "Lead/Systems Designer",
         tags: [
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
         ]
     },
     wastemancer: {
         title: "Wastemancer",
         description: "Arcade game about a magical raccoon spellcasting to rid the world of waste.",
-        metric: "Over 50 downloads.",
-        logo: "images/wst.gif",
+        logo: {
+            static: "images/wst.png",
+            animated: "images/wst.gif"
+        },
         link: "https://futuregames.itch.io/wastemancer",
         groupSize: 12,
         engine: "Unity",
@@ -77,7 +90,7 @@ const projects = {
         role: "Systems/Sound Designer",
         tags: [
             { label: "Prototyping", class: "tag-prototype" },
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
             { label: "SFX", class: "tag-sound"},
         ]
     },
@@ -85,7 +98,10 @@ const projects = {
         title: "Parasozhyt",
         description: "Timer-based corridor shooter about a dying parasite constantly swapping between hosts.",
         metric: "1st place at Futuregames Jam 2025.",
-        logo: "images/prsz.gif",
+        logo: {
+            static: "images/prsz.png",
+            animated: "images/prsz.gif"
+        },
         link: "https://gamekernel.itch.io/parasozhyt",
         groupSize: 10,
         engine: "Unity",
@@ -94,14 +110,16 @@ const projects = {
         role: "Systems/3Cs/Sound Designer",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
         ]
     },
     castlescapade: {
         title: "Castlescapade",
         description: "2D platformer about a thief robbing a falling-apart castle and escaping with the loot.",
-        metric: "Over 30 downloads.",
-        logo: "images/cstl.gif",
+        logo: {
+            static: "images/cstl.png",
+            animated: "images/cstl.gif"
+        },
         link: "https://fikou.itch.io/castlescapade",
         groupSize: 1,
         engine: "Unreal",
@@ -111,27 +129,32 @@ const projects = {
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Level Design", class: "tag-level" },
-            { label: "VFX", class: "tag-vfx"},
         ]
     },
     boardgames: {
         title: "Board Games",
         description: "Various board game designs.",
-        logo: "images/brd.png",
+        logo: {
+            static: "images/brd.png",
+            animated: "images/brd.png"
+        },
         link: "",
         groupSize: "1-4",
         engine: "Life/Tabletop Sim",
         custom: "Test",
         tags: [
             { label: "Prototyping", class: "tag-prototype" },
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
         ]
     },
     greg: {
         title: "Greg the Frog: Burning Escape",
         description: "3D platformer where I helped fine-tune the controls to feel good.",
         metric: "1st place at Futuregames Warsaw GP1 Jury Day.",
-        logo: "images/grg.gif",
+        logo: {
+            static: "images/grg.png",
+            animated: "images/grg.gif"
+        },
         link: "https://futuregames.itch.io/greg-the-frog",
         groupSize: 14,
         engine: "Unity",
@@ -145,7 +168,10 @@ const projects = {
     barreland: {
         title: "Barreland",
         description: "Small arcade game made to learn Unity.",
-        logo: "images/brl.gif",
+        logo: {
+            static: "images/brl.png",
+            animated: "images/brl.gif"
+        },
         link: "https://fikou.itch.io/barreland",
         groupSize: 1,
         engine: "Unity",
@@ -154,13 +180,16 @@ const projects = {
         role: "Solo Developer",
         tags: [
             { label: "Prototyping", class: "tag-prototype" },
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
         ]
     },
     gyruss: {
         title: "Gyruss Remake",
         description: "Remake of a 1983 arcade game to learn Unreal Engine.",
-        logo: "images/grs.gif",
+        logo: {
+            static: "images/grs.png",
+            animated: "images/grs.gif"
+        },
         link: "https://fikou.itch.io/gyruss",
         groupSize: "1",
         engine: "Unreal",
@@ -174,7 +203,10 @@ const projects = {
     diggy: {
         title: "Diggy and the Forgotten Caves",
         description: "2D platformer where I did minor character controller contributions and VFX.",
-        logo: "images/dgg.gif",
+        logo: {
+            static: "images/dgg.png",
+            animated: "images/dgg.gif"
+        },
         link: "https://buas-blockc2025-team5.itch.io/diggy-and-the-forgotten-caves",
         groupSize: "4",
         engine: "Unreal",
@@ -183,21 +215,23 @@ const projects = {
         role: "3Cs Support",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
-            { label: "VFX", class: "tag-vfx" },
         ]
     },
     balkanica: {
         title: "Balkanica",
         description: "EU4 mod that adds regional flavor to nations in the Balkans.",
         metric: "Runner up in regional flavor category during the official Modathon, over 1300 unique subscribers.",
-        logo: "images/blk.gif",
+        logo: {
+            static: "images/blk.png",
+            animated: "images/blk.gif"
+        },
         link: "https://steamcommunity.com/sharedfiles/filedetails/?id=3452982255",
         groupSize: "4",
         engine: "Clausewitz",
         timeframe: "Mar 2025",
         role: "Lead/Systems/Content Designer",
         tags: [
-            { label: "Systems", class: "tag-systems" },
+            { label: "System Design", class: "tag-systems" },
             { label: "Level Design", class: "tag-level" },
         ]
     }
@@ -211,7 +245,12 @@ function renderProjects(containerId, projectKeys) {
         return `
         <a href="project.html?id=${key}" class="project-link">
             <div class="project-card">
-                <img src="${proj.logo}" alt="${proj.title} image">
+                <img 
+                    src="${proj.logo.static}" 
+                    data-static="${proj.logo.static}" 
+                    data-animated="${proj.logo.animated}" 
+                    class="project-image"
+                >
                 <div class="project-info">
                     <h3>
                     <span class="project-meta">
@@ -240,11 +279,35 @@ function renderProjects(containerId, projectKeys) {
         </a>
         `;
     }).join("");
+    Object.values(projects).forEach(proj => {
+        const img = new Image();
+        img.src = proj.logo.animated;
+    });
 }
 
 // Example: split featured vs other
 renderProjects("featured-projects", ["frsh", "ss13", "countdashula", "wastemancer", "castlescapade", "voita"]);
 renderProjects("other-projects", ["parasozhyt", "boardgames", "greg", "balkanica", "barreland", "gyruss", "diggy"]);
+
+document.addEventListener("mouseover", (e) => {
+    const card = e.target.closest(".project-card");
+    if (!card) return;
+
+    const img = card.querySelector(".project-image");
+    if (img) {
+        img.src = img.dataset.animated;
+    }
+});
+
+document.addEventListener("mouseout", (e) => {
+    const card = e.target.closest(".project-card");
+    if (!card) return;
+
+    const img = card.querySelector(".project-image");
+    if (img) {
+        img.src = img.dataset.static;
+    }
+});
 
 document.querySelectorAll("#name-header span[data-sound]").forEach(span => {
     span.addEventListener("click", () => {

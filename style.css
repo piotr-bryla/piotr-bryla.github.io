@@ -500,7 +500,6 @@ footer {
 .tag-combat::before { background-color: rgb(231, 6, 6); }
 .tag-sound::before { background-color: rgb(17, 133, 117); }
 .tag-maint::before { background-color: rgb(20, 133, 5); }
-.tag-vfx::before { background-color: rgb(165, 67, 1); }
 
 .close-btn {
     position: absolute;
