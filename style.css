@@ -100,9 +100,8 @@ footer {
     display: inline-flex;
     border: 2px solid var(--border);
     padding: 0.4rem;
-    border-radius: 0;
     box-shadow: 2px 2px 0 var(--border);
-    transition: color 0.2s ease, transform 0.15s ease;
+    transition: color 0.15s ease, transform 0.15s ease;
 }
 
 .social-links a:hover {
@@ -190,7 +189,7 @@ footer {
     letter-spacing: 1px;
     line-height: 1;
     text-decoration: none;
-    transition: background 1s ease, box-shadow 1s ease, transform 1s ease;
+    transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
     cursor: pointer;
     white-space: nowrap;
     border: none;
@@ -208,8 +207,12 @@ footer {
 #name-header span {
     display: inline-flex;
     cursor: pointer;
-    transition: color 0.1s ease;
     letter-spacing: 5px;
+    transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.mute {
+    color: var(--muted);
 }
 
 .subtitle {
@@ -245,11 +248,92 @@ footer {
     border: 2px solid var(--border);
     font-size: 0.95rem;
     padding: 0.5rem;
-    font-family: "Lato";
+    font-family: 'Lato', sans-serif;
 }
 
+.skills-section {
+    margin-top: 0.5rem;
+    padding: 0 2rem;
+    background: var(--surface-a);
+    border: 2px solid var(--border);
+}
+
+.skills-section h3 {
+    display: inline-block;
+    color: var(--surface);
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0.1rem 0.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.skills-section h3::before {
+    content: "";
+    position: absolute;
+    background: var(--text);
+    inset: 0;
+    z-index: -1;
+    transform-origin: center;
+}
+
+.skills-lists {
+    display: flex;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.skills-category {
+    flex: 1;
+    min-width: 180px;
+}
+
+.skills-category h4 {
+    display: inline-block;
+    color: var(--surface);
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0.05rem 0.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.skills-category h4::before {
+    content: "";
+    position: absolute;
+    background: var(--text);
+    inset: 0;
+    z-index: -1;
+    transform-origin: center;
+}
+
+.skills-category ul {
+    list-style: none;
+    padding: 0;
+    line-height: 1.5rem;
+    margin-top: 0.25rem;
+}
+
+.skills-category ul li {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    position: relative;
+    padding-left: 1rem;
+}
+
+.skills-category ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+}
+
+
 .contact-info {
-    font-family: "Lato";
+    font-family: 'Lato', sans-serif;
     margin-top: -2rem;
     line-height: 1rem;
 }
@@ -263,6 +347,11 @@ footer {
     text-decoration: none;
     color: inherit;
     display: flex;
+}
+
+.project-page {
+    background-color: var(--surface-a);
+    border: 2px solid var(--border);
 }
 
 .project-grid {
@@ -280,6 +369,7 @@ footer {
 .project-card {
     background: var(--surface-a);
     border: 2px solid var(--border);
+    width: 100%;
     cursor: pointer;
     transition: transform 0.15s ease, border-color 0.15s ease;
 }
@@ -328,6 +418,49 @@ footer {
     transform: translateY(-3px);
     background: var(--accent);
     box-shadow: 3px 3px 0 var(--accent);
+}
+
+.project-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(min(220px, 100%), 100px), max-content));
+    gap: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    justify-content: center;
+}
+
+.meta-block {
+    position: relative;
+    padding: 0.75rem 0.9rem;
+    background: var(--text);
+    color: var(--surface);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-direction: column;
+    max-width: 280px;
+    gap: 0.3rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.meta-label {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.meta-value {
+    font-size: 1rem;
+}
+
+.meta-link {
+    text-decoration: none;
+}
+
+.meta-link:hover {
+    background: var(--accent);
+    color: var(--surface);
+    transform: translateY(-4px);
+    box-shadow: 4px 4px 0 var(--accent);
 }
 
 .tags {

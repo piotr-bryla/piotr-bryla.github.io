@@ -7,6 +7,9 @@ const projects = {
         link: "https://fikou.itch.io/frsh",
         groupSize: 1,
         engine: "Unity",
+        timeframe: "Nov-Dec 2025",
+        school: "Futuregames Warsaw",
+        role: "Solo Developer",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Combat Design", class: "tag-combat" },
@@ -23,6 +26,8 @@ const projects = {
         link: "https://tgstation13.org/",
         groupSize: "30~",
         engine: "BYOND",
+        timeframe: "2019-2026",
+        role: "OSS Contributor, Codebase Maintainer",
         tags: [
             { label: "Project Maintainer", class: "tag-maint" },
             { label: "Systems", class: "tag-systems" },
@@ -37,6 +42,8 @@ const projects = {
         link: "https://fikou.itch.io/count-dashula",
         groupSize: 1,
         engine: "Godot",
+        timeframe: "May 2024",
+        role: "Solo Developer",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Level Design", class: "tag-level" },
@@ -50,6 +57,9 @@ const projects = {
         link: "https://futuregames.itch.io/voita",
         groupSize: 13,
         engine: "Unity",
+        timeframe: "Jan-Feb 2026",
+        school: "Futuregames Warsaw",
+        role: "Lead/Systems Designer",
         tags: [
             { label: "Systems", class: "tag-systems" },
         ]
@@ -62,6 +72,9 @@ const projects = {
         link: "https://futuregames.itch.io/wastemancer",
         groupSize: 12,
         engine: "Unity",
+        timeframe: "Oct-Nov 2025",
+        school: "Futuregames Warsaw",
+        role: "Systems/Sound Designer",
         tags: [
             { label: "Prototyping", class: "tag-prototype" },
             { label: "Systems", class: "tag-systems" },
@@ -76,10 +89,12 @@ const projects = {
         link: "https://gamekernel.itch.io/parasozhyt",
         groupSize: 10,
         engine: "Unity",
+        timeframe: "Oct 2025",
+        school: "Futuregames Warsaw",
+        role: "Systems/3Cs/Sound Designer",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Systems", class: "tag-systems" },
-            { label: "VFX", class: "tag-vfx"},
         ]
     },
     castlescapade: {
@@ -90,6 +105,9 @@ const projects = {
         link: "https://fikou.itch.io/castlescapade",
         groupSize: 1,
         engine: "Unreal",
+        timeframe: "Apr-Jul 2025",
+        school: "Breda University of Applied Sciences",
+        role: "Solo Developer",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Level Design", class: "tag-level" },
@@ -103,6 +121,7 @@ const projects = {
         link: "",
         groupSize: "1-4",
         engine: "Life/Tabletop Sim",
+        custom: "Test",
         tags: [
             { label: "Prototyping", class: "tag-prototype" },
             { label: "Systems", class: "tag-systems" },
@@ -116,6 +135,9 @@ const projects = {
         link: "https://futuregames.itch.io/greg-the-frog",
         groupSize: 14,
         engine: "Unity",
+        timeframe: "Oct-Nov 2025",
+        school: "Futuregames Warsaw",
+        role: "3Cs Support",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
         ]
@@ -127,6 +149,9 @@ const projects = {
         link: "https://fikou.itch.io/barreland",
         groupSize: 1,
         engine: "Unity",
+        timeframe: "Sep 2025",
+        school: "Futuregames Warsaw",
+        role: "Solo Developer",
         tags: [
             { label: "Prototyping", class: "tag-prototype" },
             { label: "Systems", class: "tag-systems" },
@@ -139,6 +164,9 @@ const projects = {
         link: "https://fikou.itch.io/gyruss",
         groupSize: "1",
         engine: "Unreal",
+        timeframe: "Dec, Mar-Apr 2025",
+        school: "Breda University of Applied Sciences",
+        role: "Solo Developer",
         tags: [
             { label: "Prototyping", class: "tag-prototype" },
         ]
@@ -150,9 +178,27 @@ const projects = {
         link: "https://buas-blockc2025-team5.itch.io/diggy-and-the-forgotten-caves",
         groupSize: "4",
         engine: "Unreal",
+        timeframe: "Feb-Apr 2025",
+        school: "Breda University of Applied Sciences",
+        role: "3Cs Support",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "VFX", class: "tag-vfx" },
+        ]
+    },
+    balkanica: {
+        title: "Balkanica",
+        description: "EU4 mod that adds regional flavor to nations in the Balkans.",
+        metric: "Runner up in regional flavor category during the official Modathon, over 1300 unique subscribers.",
+        logo: "images/blk.gif",
+        link: "https://steamcommunity.com/sharedfiles/filedetails/?id=3452982255",
+        groupSize: "4",
+        engine: "Clausewitz",
+        timeframe: "Mar 2025",
+        role: "Lead/Systems/Content Designer",
+        tags: [
+            { label: "Systems", class: "tag-systems" },
+            { label: "Level Design", class: "tag-level" },
         ]
     }
 };
@@ -163,7 +209,7 @@ function renderProjects(containerId, projectKeys) {
     container.innerHTML = projectKeys.map(key => {
         const proj = projects[key];
         return `
-        <a href="./${key}/" class="project-link">
+        <a href="project.html?id=${key}" class="project-link">
             <div class="project-card">
                 <img src="${proj.logo}" alt="${proj.title} image">
                 <div class="project-info">
@@ -198,7 +244,7 @@ function renderProjects(containerId, projectKeys) {
 
 // Example: split featured vs other
 renderProjects("featured-projects", ["frsh", "ss13", "countdashula", "wastemancer", "castlescapade", "voita"]);
-renderProjects("other-projects", ["parasozhyt", "boardgames", "greg", "barreland", "gyruss", "diggy"]);
+renderProjects("other-projects", ["parasozhyt", "boardgames", "greg", "balkanica", "barreland", "gyruss", "diggy"]);
 
 document.querySelectorAll("#name-header span[data-sound]").forEach(span => {
     span.addEventListener("click", () => {
@@ -212,7 +258,7 @@ document.querySelectorAll("#name-header span[data-sound]").forEach(span => {
     span.style.cursor = "pointer";
     span.addEventListener("mouseenter", () => {
         span.style.color = "var(--accent)";
-        span.style.transform = "scale(1.1)"
+        span.style.transform = "scale(1.1)";
     });
     span.addEventListener("mouseleave", () => {
         span.style.color = "";

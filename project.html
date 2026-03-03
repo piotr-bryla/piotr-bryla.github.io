@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PIOTR BRYLA | Game Design Portfolio</title>
+<title>Project | Piotr Bryla</title>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -14,88 +15,42 @@
     <div class="hero-title">
       <h1 class="display-font" id="name-header">
         <span class="name-line">
-        <span data-sound="sound1">P</span><span data-sound="sound2">I</span><span data-sound="sound3">O</span><span data-sound="sound4">T</span><span data-sound="sound5">R</span>
+          <span data-sound="sound1">P</span><span data-sound="sound2">I</span><span data-sound="sound3">O</span><span data-sound="sound4">T</span><span data-sound="sound5">R</span>
         </span>
         <span class="name-line">
-        <span data-sound="sound6">B</span><span data-sound="sound7">R</span><span data-sound="sound8">Y</span><span data-sound="sound9">L</span><span data-sound="sound10">A</span>
+          <span data-sound="sound6">B</span><span data-sound="sound7">R</span><span data-sound="sound8">Y</span><span data-sound="sound9">L</span><span data-sound="sound10">A</span>
         </span>
       </h1>
     </div>
-      <div class="hero-tags hide">
-        <p class="subtitle">3CS</p>
-        <p class="subtitle">SYSTEMS</p>
-        <p class="subtitle">COMBAT DESIGN</p>
-      </div>
-    <nav class="hero-nav">
-      <div class="hide">
-        <button onclick="scrollToSection('about')">About Me</button>
-      </div>
-      <div class="hide">
-        <button onclick="scrollToSection('featured-projects')">Projects</button>
-      </div>
-      <button onclick="scrollToSection('footer')">Contact</button>
-      <a href="./blog/" class="blog-btn">Blog</a>
-      <a href="./resume.pdf" target="_blank" rel="noopener" class="cv-btn">Resume</a>
-    </nav>
+
+<div class="hero-tags">
+  <p class="subtitle">3CS</p>
+  <p class="subtitle">SYSTEMS</p>
+  <p class="subtitle">COMBAT DESIGN</p>
+</div>
+
+<nav class="hero-nav">
+  <a href="./" class="cv-btn">Return to portfolio</a>
+  <a href="./resume.pdf" target="_blank" rel="noopener" class="cv-btn">Resume</a>
+</nav>
+
   </div>
 </header>
 
 <main class="container">
-    <section id="about">
-      <h2 class="display-font section-title">About Me</h2>
-      <div class="about-me">
-        Hi, welcome to my portfolio! I'm Piotr, a Technical Game Designer studying at Futuregames Warsaw, specializing in responsive and satisfying character controllers.<br><br>
-        I like to tackle gameplay problems and design player experience oriented systems. My goal is to make deep mechanics that feel polished, intuitive, and rewarding.<br><br>
-        Below is a list of my skills and projects. <b>Click on a project</b> to get more info about it, including my contributions and the design process. If any of them interest you, feel free to get in touch!<br><br>
-        Thanks for coming, and I hope you enjoy your visit.
-      </div>
-      <div class="skills-section">
-      <div class="skills-lists">
-        <div class="skills-category">
-          <h4>DESIGN SKILLS</h4>
-          <ul>
-            <li>Game system design, implementation, and balancing</li>
-            <li>3Cs, feedback systems</li>
-            <li>HCI principles</li>
-            <li>Playtest conducting and iteration</li>
-            <li>Sound design fundamentals</li>
-          </ul>
-        </div>
-        <div class="skills-category">
-          <h4>TECHNICAL SKILLS</h4>
-          <ul>
-            <li>Game Engines (Unity, Unreal Engine, Godot)</li>
-            <li>Project Management Tools (Jira, Trello, Miro)</li>
-            <li>Programming (C#, Python, Lua, GDScript, Blueprints)</li>
-            <li>Version Control (Git, Perforce)</li>
-            <li>DAWs, Audio Middleware (FMOD, Audacity, Reaper)</li>
-          </ul>
-        </div>
-        <div class="skills-category">
-          <h4>TEAM SKILLS</h4>
-          <ul>
-            <li>Native in Polish, C2 in English, A1 in Russian</li>
-            <li>Multidisciplinary collaboration</li>
-            <li>Agile methodologies</li>
-            <li>Proactive attitude, problem solving</li>
-            <li>Adaptability and quick learning</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+  <section>
+    <h2 id="project-title" class="display-font section-title"></h2>
+<div class="project-page">
 
-    <section id="projects">
-        <h2 class="display-font section-title">Featured Projects</h2>
+  <div class="project-meta-grid" id="project-meta"></div>
 
-        <div class="project-grid" id="featured-projects"></div>
-    </section>
+  <div class="project-content">
+    <p id="project-description" class="description"></p>
+  </div>
 
-    <!-- Other Projects -->
-    <section>
-        <h2 class="display-font section-title">Other Projects</h2>
+</div>
 
-        <div class="project-grid-alt" id="other-projects"></div>
-    </section>
+  </section>
 </main>
 
 <footer class="footer" id="footer">
@@ -122,6 +77,89 @@
     </nav>
   </div>
 </footer>
+
+<!-- Load your main script -->
+
 <script src="script.js"></script>
+
+<script>
+function getProjectFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+}
+
+function renderProjectPage() {
+    const key = getProjectFromURL();
+    const proj = projects[key];
+
+    const titleEl = document.getElementById("project-title");
+    const descEl = document.getElementById("project-description");
+    const metricEl = document.getElementById("project-metric");
+    const metaContainer = document.getElementById("project-meta");
+
+    if (!proj) {
+        // Redirect to main portfolio page if project key is invalid
+        window.location.href = "./";
+        return;
+    }
+
+    document.title = "PIOTR BRYLA | " + proj.title;
+
+    titleEl.textContent = proj.title;
+    descEl.textContent = proj.fullDescription;
+if (proj.custom) {
+
+    // Render ONLY custom content
+    metaContainer.innerHTML = `
+        ${proj.custom}
+    `;
+
+} else {
+
+    // Render default layout
+    metaContainer.innerHTML = `
+        ${proj.school ? `
+        <div class="meta-block">
+            <div class="meta-label">School</div>
+            <div class="meta-value">${proj.school}</div>
+        </div>` : ""}
+
+        ${proj.groupSize != 1 ? `
+        <div class="meta-block">
+            <div class="meta-label">Team Size</div>
+            <div class="meta-value">${proj.groupSize}</div>
+        </div>` : ""}
+
+        ${proj.timeframe ? `
+        <div class="meta-block">
+            <div class="meta-label">Timeframe</div>
+            <div class="meta-value">${proj.timeframe}</div>
+        </div>` : ""}
+
+        ${proj.role ? `
+        <div class="meta-block">
+            <div class="meta-label">Role</div>
+            <div class="meta-value">${proj.role}</div>
+        </div>` : ""}
+
+        <div class="meta-block">
+            <div class="meta-label">Engine</div>
+            <div class="meta-value">
+                ${proj.engine} ${engineSVG(proj.engine)}
+            </div>
+        </div>
+
+        ${proj.link ? `
+        <a href="${proj.link}" target="_blank" rel="noopener" class="meta-block meta-link">
+            <div class="meta-label">Play</div>
+            <div class="meta-value">Press Here</div>
+        </a>` : ""}
+    `;
+}
+}
+
+renderProjectPage();
+</script>
+
 </body>
 </html>
