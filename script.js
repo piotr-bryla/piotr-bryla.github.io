@@ -2,7 +2,6 @@ const projects = {
     frsh: {
         title: "F.R.S.H.",
         description: "Boomer shooter about a butcher robot in a radioactive wasteland.",
-        metric: "Over 150 downloads.",
         logo: {
             static: "images/frsh.png",
             animated: "images/frsh.gif"
@@ -18,7 +17,6 @@ const projects = {
             { label: "Combat Design", class: "tag-combat" },
             { label: "System Design", class: "tag-systems" },
             { label: "Level Design", class: "tag-level" },
-            { label: "SFX", class: "tag-sound" },
         ]
     },
     ss13: {
@@ -55,7 +53,6 @@ const projects = {
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Level Design", class: "tag-level" },
-            { label: "SFX", class: "tag-sound"},
         ]
     },
     voita: {
@@ -89,9 +86,7 @@ const projects = {
         school: "Futuregames Warsaw",
         role: "Systems/Sound Designer",
         tags: [
-            { label: "Prototyping", class: "tag-prototype" },
             { label: "System Design", class: "tag-systems" },
-            { label: "SFX", class: "tag-sound"},
         ]
     },
     parasozhyt: {
@@ -111,6 +106,7 @@ const projects = {
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "System Design", class: "tag-systems" },
+            { label: "Combat Design", class: "tag-combat" },
         ]
     },
     castlescapade: {
@@ -131,6 +127,24 @@ const projects = {
             { label: "Level Design", class: "tag-level" },
         ]
     },
+    lichstorment: {
+        title: "Lich's Torment",
+        description: "Endless arena shooter about a wizard fighting hordes of skulls.",
+        logo: {
+            static: "images/lich.png",
+            animated: "images/lich.gif"
+        },
+        link: "https://buas.itch.io/team-rapture",
+        groupSize: 10,
+        engine: "Unreal",
+        timeframe: "May-Jul 2025",
+        school: "Breda University of Applied Sciences",
+        role: "3Cs Designer",
+        tags: [
+            { label: "3Cs", class: "tag-3cs" },
+            { label: "Combat Design", class: "tag-combat" },
+        ]
+    },
     boardgames: {
         title: "Board Games",
         description: "Various board game designs.",
@@ -143,7 +157,6 @@ const projects = {
         engine: "Life/Tabletop Sim",
         custom: "Test",
         tags: [
-            { label: "Prototyping", class: "tag-prototype" },
             { label: "System Design", class: "tag-systems" },
         ]
     },
@@ -179,7 +192,6 @@ const projects = {
         school: "Futuregames Warsaw",
         role: "Solo Developer",
         tags: [
-            { label: "Prototyping", class: "tag-prototype" },
             { label: "System Design", class: "tag-systems" },
         ]
     },
@@ -197,7 +209,7 @@ const projects = {
         school: "Breda University of Applied Sciences",
         role: "Solo Developer",
         tags: [
-            { label: "Prototyping", class: "tag-prototype" },
+            { label: "System Design", class: "tag-systems" },
         ]
     },
     diggy: {
@@ -286,8 +298,8 @@ function renderProjects(containerId, projectKeys) {
 }
 
 // Example: split featured vs other
-renderProjects("featured-projects", ["frsh", "ss13", "countdashula", "wastemancer", "castlescapade", "voita"]);
-renderProjects("other-projects", ["parasozhyt", "boardgames", "greg", "balkanica", "barreland", "gyruss", "diggy"]);
+renderProjects("featured-projects", ["frsh", "ss13", "countdashula", "wastemancer", "lichstorment", "voita"]);
+renderProjects("other-projects", ["parasozhyt", "boardgames", "castlescapade", "balkanica", "greg", "barreland", "gyruss", "diggy"]);
 
 document.addEventListener("mouseover", (e) => {
     const card = e.target.closest(".project-card");
