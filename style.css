@@ -495,10 +495,8 @@ footer {
 
 .tag-level::before { background-color: rgb(59, 92, 182); }
 .tag-3cs::before { background-color: rgb(197, 136, 21); }
-.tag-prototype::before { background-color: rgb(128, 111, 129); }
 .tag-systems::before { background-color: rgb(109, 45, 106); }
 .tag-combat::before { background-color: rgb(231, 6, 6); }
-.tag-sound::before { background-color: rgb(17, 133, 117); }
 .tag-maint::before { background-color: rgb(20, 133, 5); }
 
 .close-btn {
