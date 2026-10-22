@@ -6,6 +6,8 @@ const projects = {
             static: "images/frsh.png",
             animated: "images/frsh.gif"
         },
+        featuredDescription: "A fast-paced boomer shooter focused on responsive movement, impactful combat, and satisfying game feel.",
+        contentFile: "project-content/frsh.html",
         link: "https://fikou.itch.io/frsh",
         groupSize: 1,
         engine: "Unity",
@@ -155,7 +157,6 @@ const projects = {
         link: "",
         groupSize: "1-4",
         engine: "Life/Tabletop Sim",
-        custom: "Test",
         tags: [
             { label: "System Design", class: "tag-systems" },
         ]
@@ -232,7 +233,7 @@ const projects = {
     balkanica: {
         title: "Balkanica",
         description: "EU4 mod that adds regional flavor to nations in the Balkans.",
-        metric: "Runner up in regional flavor category during the official Modathon, over 1300 unique subscribers.",
+        metric: "Runner up in regional flavor category during the official Modathon, over 1500 unique subscribers.",
         logo: {
             static: "images/blk.png",
             animated: "images/blk.gif"
@@ -246,101 +247,471 @@ const projects = {
             { label: "System Design", class: "tag-systems" },
             { label: "Level Design", class: "tag-level" },
         ]
-    }
+    },
+    frosthaul: {
+        title: "Frost Haul",
+        description: "Co-op simulation game about moving cargo through a frozen wasteland.",
+        logo: {
+            static: "images/fhl.png",
+            animated: "images/fhl.gif"
+        },
+        link: "https://futuregames.itch.io/frosthaul",
+        groupSize: 11,
+        engine: "Unreal",
+        timeframe: "Apr-Jun 2026",
+        school: "Futuregames Warsaw",
+        role: "Lead/Systems/3Cs Designer",
+        tags: [
+            { label: "3Cs", class: "tag-3cs" },
+            { label: "System Design", class: "tag-systems" },
+        ]
+    },
+    dontmindme: {
+        title: "Don't Mind Me",
+        description: "A stealth-action game about a mimic protecting its dungeon from a D&D party.",
+        metric: "Winner at Futuregames Warsaw GP4 Jury Day.",
+        logo: {
+            static: "images/dmm.png",
+            animated: "images/dmm.gif"
+        },
+        link: "https://futuregames.itch.io/dontmindme",
+        groupSize: 8,
+        engine: "Unreal",
+        timeframe: "Apr-Jun 2026",
+        school: "Futuregames Warsaw",
+        role: "3Cs/Combat Designer",
+        tags: [
+            { label: "3Cs", class: "tag-3cs" },
+            { label: "Combat Design", class: "tag-combat" },
+        ]
+    },
 };
 
 
+
+/* ========================================
+   ALL PROJECTS GRID
+======================================== */
+
 function renderProjects(containerId, projectKeys) {
     const container = document.getElementById(containerId);
+    if (!container) return;
+
     container.innerHTML = projectKeys.map(key => {
         const proj = projects[key];
+
         return `
-        <a href="project.html?id=${key}" class="project-link">
-            <div class="project-card">
-                <img 
-                    src="${proj.logo.static}" 
-                    data-static="${proj.logo.static}" 
-                    data-animated="${proj.logo.animated}" 
+            <article class="project-card">
+                <img
+                    src="${proj.logo.static}"
+                    data-static="${proj.logo.static}"
+                    data-animated="${proj.logo.animated}"
                     class="project-image"
+                    alt="${proj.title}"
+                    loading="lazy"
                 >
+
                 <div class="project-info">
                     <h3>
-                    <span class="project-meta">
-                        ${proj.title} 
+                        <span class="project-meta">${proj.title}</span>
+                    </h3>
+
+                    <h3>
+                        <span class="project-meta">
+                            ${proj.groupSize == 1
+                                ? "Solo"
+                                : "Team of " + proj.groupSize}
                         </span>
                     </h3>
+
                     <h3>
-                    <span class="project-meta">
-                        ${proj.groupSize != 1 ? "Team of " + proj.groupSize : "Solo"} 
+                        <span class="project-meta">
+                            ${proj.engine} ${engineSVG(proj.engine)}
                         </span>
                     </h3>
-                    <h3>
-                    <span class="project-meta">
-                        ${proj.engine} ${engineSVG(proj.engine)}
-                    </span>
-                    </h3>
+
                     <div class="tags">
-                        ${proj.tags.map(tag => `<span class="${tag.class}">${tag.label}</span>`).join("")}
+                        ${proj.tags.map(tag =>
+                            `<span class="${tag.class}">${tag.label}</span>`
+                        ).join("")}
                     </div>
                 </div>
-                <p class="description">
-                ${proj.description}
-                </p>
-                ${proj.metric ? ("<p class='metric'>" + proj.metric + "</p>") : ""}
-            </div>
-        </a>
+
+                <p class="description">${proj.description}</p>
+
+                ${proj.metric
+                    ? `<p class="metric">${proj.metric}</p>`
+                    : ""}
+
+                ${proj.contentFile
+                    ? `<div class="project-card-actions">
+                        <a
+                            href="project.html?id=${encodeURIComponent(key)}"
+                            class="read-more"
+                        >Read More ></a>
+                    </div>`
+                    : ""}
+            </article>
         `;
     }).join("");
-    Object.values(projects).forEach(proj => {
-        const img = new Image();
-        img.src = proj.logo.animated;
-    });
 }
 
-// Example: split featured vs other
-renderProjects("featured-projects", ["frsh", "ss13", "countdashula", "wastemancer", "lichstorment", "voita"]);
-renderProjects("other-projects", ["parasozhyt", "boardgames", "castlescapade", "balkanica", "greg", "barreland", "gyruss", "diggy"]);
+renderProjects("all-projects", Object.keys(projects));
 
-document.addEventListener("mouseover", (e) => {
-    const card = e.target.closest(".project-card");
-    if (!card) return;
 
-    const img = card.querySelector(".project-image");
-    if (img) {
+/* ========================================
+   FEATURED PROJECTS CAROUSEL
+======================================== */
+
+function initFeaturedProjectsCarousel() {
+    const carousel = document.getElementById("featured-project-carousel");
+    const stage = document.getElementById("featured-carousel-stage");
+    const dotsContainer = document.getElementById("featured-carousel-dots");
+
+    if (!carousel || !stage || !dotsContainer) return;
+
+    // Only projects with a non-empty featuredDescription are featured.
+    const featuredProjects = Object.entries(projects)
+        .filter(([key, project]) =>
+            typeof project.featuredDescription === "string" &&
+            project.featuredDescription.trim().length > 0
+        )
+        .map(([key, project]) => ({
+            key,
+            ...project
+        }));
+
+    // Hide the entire section when no projects are featured.
+    if (featuredProjects.length === 0) {
+        carousel.closest(".featured-projects-section")?.setAttribute(
+            "hidden",
+            ""
+        );
+        return;
+    }
+
+    let activeIndex = 0;
+    const cards = [];
+    const dots = [];
+
+    function createCard(project) {
+        const card = document.createElement("article");
+        card.className = "carousel-card";
+
+        const visual = document.createElement("div");
+        visual.className = "carousel-visual";
+
+        const image = document.createElement("img");
+        image.src = project.logo.static;
+        image.dataset.static = project.logo.static;
+        image.dataset.animated = project.logo.animated;
+        image.alt = `${project.title} gameplay`;
+        image.loading = "eager";
+        image.decoding = "async";
+
+        visual.appendChild(image);
+
+        const info = document.createElement("div");
+        info.className = "carousel-info";
+
+        const title = document.createElement("h3");
+        title.className = "carousel-title";
+        title.textContent = project.title;
+
+        // Use the dedicated featured description, not the grid description.
+        const description = document.createElement("p");
+        description.className = "carousel-description";
+        description.textContent = project.featuredDescription.trim();
+
+
+        const details = document.createElement("div");
+        details.className = "carousel-details tags";
+
+        (project.tags || []).forEach(tag => {
+            const tagEl = document.createElement("span");
+            tagEl.className = tag.class;
+            tagEl.textContent = tag.label;
+            details.appendChild(tagEl);
+        });
+
+        const actions = document.createElement("div");
+        actions.className = "carousel-card-actions";
+
+        if (project.contentFile) {
+            const readMore = document.createElement("a");
+            readMore.className = "read-more";
+            readMore.href =
+                `project.html?id=${encodeURIComponent(project.key)}`;
+            readMore.textContent = "Read More >";
+
+            actions.appendChild(readMore);
+        }
+
+        actions.appendChild(details);
+
+        info.append(title, description, actions);
+        card.append(visual, info);
+
+
+        return card;
+    }
+
+    // Build cards once.
+    stage.replaceChildren();
+
+    featuredProjects.forEach(project => {
+        const card = createCard(project);
+        stage.appendChild(card);
+        cards.push(card);
+    });
+
+    // Build navigation dots.
+    dotsContainer.replaceChildren();
+
+    featuredProjects.forEach((project, index) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "carousel-dot";
+        dot.setAttribute("aria-label", `Show ${project.title}`);
+        dot.addEventListener("click", () => goTo(index));
+
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+    });
+
+    function render() {
+        const total = cards.length;
+        const previousIndex = (activeIndex - 1 + total) % total;
+        const nextIndex = (activeIndex + 1) % total;
+
+        cards.forEach((card, index) => {
+            card.classList.remove(
+                "is-active", "is-prev", "is-next", "is-hidden"
+            );
+
+            const image = card.querySelector(".carousel-visual img");
+
+            if (index === activeIndex) {
+                if (
+                    image.getAttribute("src") !== image.dataset.animated
+                ) {
+                    image.src = image.dataset.animated;
+                }
+
+                card.classList.add("is-active");
+                card.setAttribute("aria-hidden", "false");
+            } else {
+                if (
+                    image.getAttribute("src") !== image.dataset.static
+                ) {
+                    image.src = image.dataset.static;
+                }
+
+                card.setAttribute("aria-hidden", "true");
+
+                if (index === previousIndex) {
+                    card.classList.add("is-prev");
+                } else if (index === nextIndex) {
+                    card.classList.add("is-next");
+                } else {
+                    card.classList.add("is-hidden");
+                }
+            }
+        });
+
+        dots.forEach((dot, index) => {
+            const isActive = index === activeIndex;
+
+            dot.classList.toggle("is-active", isActive);
+
+            if (isActive) {
+                dot.setAttribute("aria-current", "true");
+            } else {
+                dot.removeAttribute("aria-current");
+            }
+        });
+    }
+
+    function goTo(index) {
+        activeIndex = (index + cards.length) % cards.length;
+        render();
+    }
+
+    function previous() {
+        goTo(activeIndex - 1);
+    }
+
+    function next() {
+        goTo(activeIndex + 1);
+    }
+
+    const previousButton = carousel.querySelector(".carousel-prev");
+    const nextButton = carousel.querySelector(".carousel-next");
+
+    previousButton.addEventListener("click", previous);
+    nextButton.addEventListener("click", next);
+
+    carousel.addEventListener("keydown", event => {
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            previous();
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            next();
+        }
+    });
+
+    // Touch swipe navigation.
+    let touchStartX = null;
+    let touchStartY = null;
+
+    stage.addEventListener("touchstart", event => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, { passive: true });
+
+    stage.addEventListener("touchend", event => {
+        if (touchStartX === null || touchStartY === null) return;
+
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (
+            Math.abs(deltaX) > 45 &&
+            Math.abs(deltaX) > Math.abs(deltaY)
+        ) {
+            if (deltaX > 0) {
+                previous();
+            } else {
+                next();
+            }
+        }
+
+        touchStartX = null;
+        touchStartY = null;
+    }, { passive: true });
+
+    // A single featured project still works without navigation.
+    if (cards.length === 1) {
+        previousButton.hidden = true;
+        nextButton.hidden = true;
+        dotsContainer.hidden = true;
+    }
+
+    render();
+}
+
+initFeaturedProjectsCarousel();
+
+
+const mobileQuery = window.matchMedia(
+    "(hover: none) and (pointer: coarse)"
+);
+
+let gifObserver = null;
+
+function setImageToStatic(img) {
+    if (img && img.src !== new URL(img.dataset.static, document.baseURI).href) {
+        img.src = img.dataset.static;
+    }
+}
+
+function setImageToAnimated(img) {
+    if (img && img.src !== new URL(img.dataset.animated, document.baseURI).href) {
         img.src = img.dataset.animated;
     }
+}
+
+function setupMobileGifs() {
+    if (gifObserver) {
+        gifObserver.disconnect();
+        gifObserver = null;
+    }
+
+    if (mobileQuery.matches) {
+        gifObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const img = entry.target;
+
+                if (entry.isIntersecting && entry.intersectionRatio >= 1) {
+                    setImageToAnimated(img);
+                } else {
+                    setImageToStatic(img);
+                }
+            });
+        }, {
+            threshold: 1
+        });
+
+        document.querySelectorAll(".project-image").forEach((img) => {
+            setImageToStatic(img);
+            gifObserver.observe(img);
+        });
+    } else {
+        document.querySelectorAll(".project-image").forEach(setImageToStatic);
+    }
+}
+
+document.addEventListener("mouseover", (e) => {
+    if (mobileQuery.matches) return;
+
+    const card = e.target.closest(".project-card");
+    if (!card || card.contains(e.relatedTarget)) return;
+
+    setImageToAnimated(card.querySelector(".project-image"));
 });
 
 document.addEventListener("mouseout", (e) => {
-    const card = e.target.closest(".project-card");
-    if (!card) return;
+    if (mobileQuery.matches) return;
 
-    const img = card.querySelector(".project-image");
-    if (img) {
-        img.src = img.dataset.static;
-    }
+    const card = e.target.closest(".project-card");
+    if (!card || card.contains(e.relatedTarget)) return;
+
+    setImageToStatic(card.querySelector(".project-image"));
 });
 
-document.querySelectorAll("#name-header span[data-sound]").forEach(span => {
+setupMobileGifs();
+mobileQuery.addEventListener("change", setupMobileGifs);
+const nameSpans = document.querySelectorAll("#name-header span[data-sound]");
+const mobileInput = window.matchMedia("(hover: none) and (pointer: coarse)");
+
+nameSpans.forEach(span => {
     span.addEventListener("click", () => {
-        const soundFile = `sounds/${span.dataset.sound}.ogg`;
-        const audio = new Audio(soundFile);
+        if (window.location.pathname.endsWith("/project.html")) {
+                window.location.href = "./";
+                return;
+            }
+        if (mobileInput.matches) return;
+
+        const audio = new Audio(`sounds/${span.dataset.sound}.ogg`);
         audio.volume = 0.25;
         audio.play();
     });
 
-    // Optional: add hover effect
-    span.style.cursor = "pointer";
+    span.style.cursor = mobileInput.matches ? "default" : "pointer";
+
     span.addEventListener("mouseenter", () => {
+        if (mobileInput.matches) return;
+
         span.style.color = "var(--accent)";
         span.style.transform = "scale(1.1)";
     });
+
     span.addEventListener("mouseleave", () => {
         span.style.color = "";
-        span.style.transform = "scale(1)"
+        span.style.transform = "";
     });
 });
 
+function updateNameInteraction() {
+    nameSpans.forEach(span => {
+        span.style.cursor = mobileInput.matches ? "default" : "pointer";
+    });
+}
+
+mobileInput.addEventListener("change", updateNameInteraction);
 function scrollToSection(id) {
     const section = document.getElementById(id);
     const hero = document.querySelector(".hero");

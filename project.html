@@ -42,11 +42,11 @@
     <h2 id="project-title" class="display-font section-title"></h2>
 <div class="project-page">
 
-  <div class="project-meta-grid" id="project-meta"></div>
+    <div class="project-meta-grid" id="project-meta"></div>
 
-  <div class="project-content">
-    <p id="project-description" class="description"></p>
-  </div>
+    <div class="project-content">
+        <div id="project-custom-content"></div>
+    </div>
 
 </div>
 
@@ -88,17 +88,16 @@ function getProjectFromURL() {
     return params.get("id");
 }
 
-function renderProjectPage() {
+async function renderProjectPage() {
     const key = getProjectFromURL();
     const proj = projects[key];
 
     const titleEl = document.getElementById("project-title");
-    const descEl = document.getElementById("project-description");
-    const metricEl = document.getElementById("project-metric");
     const metaContainer = document.getElementById("project-meta");
+    const contentContainer =
+        document.getElementById("project-custom-content");
 
     if (!proj) {
-        // Redirect to main portfolio page if project key is invalid
         window.location.href = "./";
         return;
     }
@@ -106,17 +105,8 @@ function renderProjectPage() {
     document.title = "PIOTR BRYLA | " + proj.title;
 
     titleEl.textContent = proj.title;
-    descEl.textContent = proj.fullDescription;
-if (proj.custom) {
 
-    // Render ONLY custom content
-    metaContainer.innerHTML = `
-        ${proj.custom}
-    `;
-
-} else {
-
-    // Render default layout
+    // Always render the standard project metadata.
     metaContainer.innerHTML = `
         ${proj.school ? `
         <div class="meta-block">
@@ -124,7 +114,7 @@ if (proj.custom) {
             <div class="meta-value">${proj.school}</div>
         </div>` : ""}
 
-        ${proj.groupSize != 1 ? `
+        ${proj.groupSize != 1 && proj.groupSize != null ? `
         <div class="meta-block">
             <div class="meta-label">Team Size</div>
             <div class="meta-value">${proj.groupSize}</div>
@@ -142,20 +132,51 @@ if (proj.custom) {
             <div class="meta-value">${proj.role}</div>
         </div>` : ""}
 
+        ${proj.engine ? `
         <div class="meta-block">
             <div class="meta-label">Engine</div>
             <div class="meta-value">
                 ${proj.engine} ${engineSVG(proj.engine)}
             </div>
-        </div>
+        </div>` : ""}
 
         ${proj.link ? `
-        <a href="${proj.link}" target="_blank" rel="noopener" class="meta-block meta-link">
+        <a href="${proj.link}" target="_blank"
+           rel="noopener noreferrer" class="meta-block meta-link">
             <div class="meta-label">Play</div>
             <div class="meta-value">Press Here</div>
         </a>` : ""}
     `;
-}
+
+    // Load the optional HTML content beneath the metadata and description.
+    contentContainer.replaceChildren();
+
+    if (typeof proj.contentFile === "string" &&
+        proj.contentFile.trim() !== "") {
+        try {
+            const response = await fetch(proj.contentFile);
+
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP ${response.status}: ${response.statusText}`
+                );
+            }
+
+            const html = await response.text();
+            contentContainer.innerHTML = html;
+        } catch (error) {
+            console.error(
+                `Failed to load content for ${proj.title}:`,
+                error
+            );
+
+            const message = document.createElement("p");
+            message.className = "description";
+            message.textContent =
+                "Project details could not be loaded.";
+            contentContainer.appendChild(message);
+        }
+    }
 }
 
 renderProjectPage();
