@@ -266,6 +266,24 @@ const projects = {
             { label: "System Design", class: "tag-systems" },
         ]
     },
+    jupiter: {
+        title: "Jupiter Shines On You",
+        description: "On-rails shooter bullet hell about conquering all the avatars of the gods.",
+        logo: {
+            static: "images/jsoy.png",
+            animated: "images/jsoy.gif"
+        },
+        link: "https://fikou.itch.io/jupiter-shines-on-you",
+        groupSize: 3,
+        engine: "Unreal",
+        timeframe: "Aug 2026",
+        school: "Futuregames Warsaw",
+        role: "3Cs/Combat Designer",
+        tags: [
+            { label: "3Cs", class: "tag-3cs" },
+            { label: "Combat Design", class: "tag-combat" },
+        ]
+    },
     dontmindme: {
         title: "Don't Mind Me",
         description: "A stealth-action game about a mimic protecting its dungeon from a D&D party.",
