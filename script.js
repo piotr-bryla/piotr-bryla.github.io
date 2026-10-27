@@ -854,6 +854,7 @@ mobileQuery.addEventListener("change", setupMobileGifs);
 const preloadedGifs = [];
 
 window.addEventListener("load", () => {
+    if (!document.getElementById("all-projects")) return;
     const urls = new Set(
         Object.values(projects).map(project => project.logo.animated)
     );
@@ -869,6 +870,11 @@ const mobileInput = window.matchMedia("(hover: none) and (pointer: coarse)");
 
 nameSpans.forEach(span => {
     span.addEventListener("click", () => {
+        if (document.body.dataset.home) {
+            window.location.href = document.body.dataset.home;
+            return;
+        }
+
         if (window.location.pathname.endsWith("/project.html")) {
                 window.location.href = "./";
                 return;
