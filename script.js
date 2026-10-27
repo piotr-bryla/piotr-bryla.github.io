@@ -321,7 +321,7 @@ function renderProjects(containerId, projectKeys) {
         const proj = projects[key];
 
         return `
-            <article class="project-card" ${proj.link ? `data-link="${proj.link}"` : ""}>
+            <article class="project-card">
                 <img
                     src="${proj.logo.static}"
                     data-static="${proj.logo.static}"
@@ -368,12 +368,22 @@ function renderProjects(containerId, projectKeys) {
                     ? `<p class="metric">${proj.metric}</p>`
                     : ""}
 
-                ${proj.contentFile
+                ${proj.link || proj.contentFile
                     ? `<div class="project-card-actions">
-                        <a
-                            href="project.html?id=${encodeURIComponent(key)}"
-                            class="read-more"
-                        >Read More ▸</a>
+                        ${proj.link
+                            ? `<a
+                                href="${proj.link}"
+                                class="read-more"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Play ▶</a>`
+                            : ""}
+                        ${proj.contentFile
+                            ? `<a
+                                href="project.html?id=${encodeURIComponent(key)}"
+                                class="read-more"
+                            >Read More ▶</a>`
+                            : ""}
                     </div>`
                     : ""}
             </article>
@@ -504,6 +514,16 @@ function initFeaturedProjectsCarousel() {
         title.className = "carousel-title";
         title.textContent = project.title;
 
+        const meta = document.createElement("div");
+        meta.className = "carousel-meta";
+        meta.innerHTML = [
+            project.groupSize == 1 ? "Solo" : "Team of " + project.groupSize,
+            `${project.engine} ${engineSVG(project.engine)}`,
+            project.timeframe
+        ].filter(Boolean)
+            .map(text => `<span class="carousel-meta-item">${text}</span>`)
+            .join("");
+
         // Use the dedicated featured description, not the grid description.
         const description = document.createElement("p");
         description.className = "carousel-description";
@@ -535,7 +555,11 @@ function initFeaturedProjectsCarousel() {
 
         actions.appendChild(details);
 
-        info.append(title, description, actions);
+        const heading = document.createElement("div");
+        heading.className = "carousel-heading";
+        heading.append(title, meta);
+
+        info.append(heading, description, actions);
         card.append(visual, info);
 
 
@@ -852,13 +876,6 @@ document.addEventListener("mouseout", (e) => {
     setImageToStatic(card.querySelector(".project-image"));
 });
 
-document.addEventListener("click", (e) => {
-    const card = e.target.closest(".project-card[data-link]");
-    if (!card || e.target.closest("a")) return;
-
-    window.open(card.dataset.link, "_blank", "noopener");
-});
-
 setupMobileGifs();
 mobileQuery.addEventListener("change", setupMobileGifs);
 
@@ -922,8 +939,7 @@ function updateNameInteraction() {
 
 mobileInput.addEventListener("change", updateNameInteraction);
 
-// Hide the sticky header while scrolling down on small screens.
-const narrowQuery = window.matchMedia("(max-width: 700px)");
+// Hide the sticky header while scrolling down.
 let lastScrollY = window.scrollY;
 let navScrolling = false;
 let navScrollTimer = null;
@@ -942,7 +958,7 @@ window.addEventListener("scroll", () => {
             lastScrollY = Math.max(window.scrollY, 0);
         }, 150);
         hero.classList.remove("is-hidden");
-    } else if (!narrowQuery.matches || currentY < hero.offsetHeight) {
+    } else if (currentY < hero.offsetHeight) {
         hero.classList.remove("is-hidden");
     } else if (currentY > lastScrollY + 4) {
         hero.classList.add("is-hidden");

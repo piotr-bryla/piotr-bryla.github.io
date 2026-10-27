@@ -49,6 +49,7 @@
     --surface-a: #111111aa;
     --surface-b: #11111177;
     --text: #f7f5eb;
+    --text-dim: #e4e2d8;
     --muted: #adadad;
     --border: #444444;
     --accent: #fc709e;
@@ -149,6 +150,11 @@ footer {
     z-index: 9999;
     background: var(--bg);
     padding-bottom: 0.5rem;
+    transition: transform 0.25s ease;
+}
+
+.hero.is-hidden {
+    transform: translateY(-100%);
 }
 
 .hero-top {
@@ -257,8 +263,17 @@ footer {
     cursor: pointer;
     white-space: nowrap;
     border: none;
-    outline: none;
     -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+}
+
+a[href^="mailto:"] {
+    display: inline-block;
+    padding: 0.25rem 0;
 }
 
 @media (hover: hover) {
@@ -292,8 +307,9 @@ footer {
     .hero-nav .blog-btn {
         flex: 1 1 0;
         text-align: center;
-        padding: 0.9rem 0.25rem;
-        font-size: 0.85rem;
+        padding: 0.6rem 0.25rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
     }
 }
 
@@ -325,7 +341,7 @@ footer {
 .subtitle::before {
     content: "";
     position: absolute;
-    background: var(--text);
+    background: var(--text-dim);
     inset: 0;
     z-index: -1;
     transform-origin: center;
@@ -342,6 +358,7 @@ footer {
     font-size: 0.95rem;
     padding: 0.5rem;
     font-family: 'Lato', sans-serif;
+    color: var(--text-dim);
 }
 
 .skills-section {
@@ -422,7 +439,7 @@ footer {
 .skills-category ul li {
     font-family: 'Lato', sans-serif;
     font-size: 0.9rem;
-    color: var(--text);
+    color: var(--text-dim);
     position: relative;
     padding-left: 1rem;
 }
@@ -469,19 +486,17 @@ footer {
 }
 
 .sort-label {
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
 }
 
 .sort-button {
     width: 5rem;
     text-align: center;
     padding: 0.5rem 0;
-    background: var(--text);
+    background: var(--text-dim);
     color: var(--surface);
-    border: 2px solid var(--text);
+    border: 2px solid var(--text-dim);
     font-family: Arial, sans-serif;
     font-size: 0.8rem;
     font-weight: 800;
@@ -519,8 +534,7 @@ footer {
     }
 
     .sort-label {
-        font-size: 0.8rem;
-        letter-spacing: 0;
+        font-size: 0.9rem;
         white-space: nowrap;
     }
 
@@ -550,18 +564,12 @@ footer {
     background: var(--surface-a);
     border: 2px solid var(--border);
     width: 100%;
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-.project-card[data-link] {
-    cursor: pointer;
-}
-
-@media (hover: hover) {
-    .project-card:hover {
-        transform: translateY(-4px);
-        border-color: var(--accent);
-    }
+.project-card .project-card-actions {
+    margin-top: auto;
 }
 
 .project-card img {
@@ -574,6 +582,9 @@ footer {
 }
 
 .project-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     padding: 0 1rem 1rem;
 }
 
@@ -581,10 +592,10 @@ footer {
     display: inline-block;
     align-self: flex-start;
     margin-top: 1rem;
-    padding: 0.5rem 0.75rem;
-    background: var(--text);
+    padding: 0.2rem 0.75rem;
+    background: var(--text-dim);
     color: var(--surface);
-    border: 2px solid var(--text);
+    border: 2px solid var(--text-dim);
     font-family: Arial, sans-serif;
     font-size: 0.8rem;
     font-weight: 800;
@@ -600,8 +611,7 @@ footer {
         box-shadow 0.15s ease;
 }
 
-.read-more:hover,
-.read-more:focus-visible {
+.read-more:hover {
     background: var(--accent);
     border-color: var(--accent);
     color: var(--surface);
@@ -646,7 +656,13 @@ footer {
 }
 
 .project-info h3:not(:first-child) {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
+    padding: 0.25rem 0.4rem;
+}
+
+.project-info h3:not(:first-child) .project-meta {
+    display: inline;
+    font-size: inherit;
 }
 
 .project-info h3 svg {
@@ -661,10 +677,14 @@ footer {
 .project-info h3::before {
     content: "";
     position: absolute;
-    background: var(--text);
+    background: var(--text-dim);
     inset: 0;
     z-index: -1;
     transform-origin: center;
+}
+
+.project-info h3:first-child::before {
+    background: var(--text);
 }
 
 .project-info h2 a:hover {
@@ -726,7 +746,7 @@ footer {
 .meta-block {
     position: relative;
     padding: 0.75rem 0.9rem;
-    background: var(--text);
+    background: var(--text-dim);
     color: var(--surface);
     font-weight: 800;
     text-transform: uppercase;
@@ -765,7 +785,7 @@ footer {
 .project-carousel {
     position: relative;
     width: 100%;
-    height: clamp(350px, 40vw, 415px);
+    height: clamp(350px, 40vw, 500px);
     overflow: hidden;
     isolation: isolate;
 }
@@ -839,7 +859,7 @@ footer {
     justify-content: flex-start;
     gap: 0.75rem;
     width: 100%;
-    margin-top: auto;
+    margin-top: 0;
 }
 
 .carousel-card-actions > .read-more {
@@ -928,16 +948,56 @@ footer {
     background: var(--text);
     color: var(--surface);
     font-family: Arial, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 800;
     letter-spacing: 1px;
     line-height: 1.2;
 }
 
+.carousel-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+}
+
+.carousel-card-actions {
+    margin-top: auto;
+}
+
+.carousel-meta-item {
+    display: inline-block;
+    padding: 0.25rem 0.4rem;
+    background: var(--text-dim);
+    color: var(--surface);
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+.carousel-meta-item svg {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin: -0.3em 0;
+    position: relative;
+    top: -2px;
+}
+
 .carousel-description {
     margin: 0;
     line-height: 1.7;
-    opacity: .8;
+    color: var(--text-dim);
     font-size: .9rem;
     font-family: 'Lato', sans-serif;
 }
@@ -1057,59 +1117,71 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 0;
     width: 100%;
 }
 
 .carousel-dot {
-    width: 11px;
-    height: 11px;
-    flex: 0 0 11px;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    margin: -8.5px 0;
     padding: 0;
-    border: 2px solid #fff;
-    background: #fff;
-    opacity: .45;
+    border: none;
+    background: transparent;
     cursor: pointer;
-    transition:
-        opacity .2s ease,
-        transform .2s ease,
-        background .2s ease;
 }
 
-.carousel-dot.is-active {
+.carousel-dot::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 11px;
+    height: 11px;
+    margin: -5.5px 0 0 -5.5px;
+    background: #fff;
+    opacity: .45;
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+}
+
+.carousel-dot.is-active::before {
     opacity: 1;
     transform: scale(1.3);
-    background: #fff;
-    border-color: #fff;
 }
 
 
 @media (max-width: 700px) {
     .project-carousel {
         position: relative;
-        height: 440px;
+        height: auto;
         min-height: 0;
         overflow: hidden;
     }
 
     .carousel-stage {
         position: relative;
-        height: 100%;
+        display: grid;
+        height: auto;
         width: 100%;
         background-color: transparent;
     }
 
     .carousel-card {
-        position: absolute;
-        top: 50%;
-        left: 50%;
+        position: relative;
+        top: auto;
+        left: auto;
+        grid-area: 1 / 1;
         width: 100%;
-        height: 100%;
+        height: auto;
         background: var(--surface-a);
         border: 2px solid var(--border);
         grid-template-columns: 1fr;
-        grid-template-rows: 180px 1fr;
-        transform: translate(-50%, -50%);
+        grid-template-rows: 180px auto;
+        transform: none;
         transition:
             transform 350ms cubic-bezier(.2, .75, .25, 1),
             opacity 350ms ease;
@@ -1117,19 +1189,19 @@ footer {
     }
 
     .carousel-card.is-active {
-        transform: translate(-50%, -50%);
+        transform: none;
         opacity: 1;
         pointer-events: auto;
     }
 
     .carousel-card.is-prev {
-        transform: translate(-145%, -50%);
+        transform: translateX(-100%);
         opacity: 0;
         pointer-events: none;
     }
 
     .carousel-card.is-next {
-        transform: translate(45%, -50%);
+        transform: translateX(100%);
         opacity: 0;
         pointer-events: none;
     }
@@ -1176,13 +1248,28 @@ footer {
         margin-bottom: 0.35rem;
     }
 
+    .carousel-heading {
+        display: contents;
+    }
+
     .carousel-title {
-        font-size: 1.2rem;
-        line-height: 1;
-        margin-bottom: 0.75rem;
+        font-size: 1.05rem;
         align-self: center;
-        text-align: center;
         max-width: calc(100% - 88px);
+        margin-bottom: 0.75rem;
+    }
+
+    .carousel-description {
+        order: 2;
+    }
+
+    .carousel-meta {
+        display: none;
+    }
+
+    .carousel-card-actions {
+        order: 4;
+        margin-top: 0.5rem;
     }
 
     .carousel-description {
@@ -1246,17 +1333,21 @@ footer {
     }
 
     .carousel-dots {
-        gap: 0.65rem;
+        gap: 0;
     }
 
     .carousel-dot {
+        margin: -8px 0;
+    }
+
+    .carousel-dot::before {
         width: 12px;
         height: 12px;
-        flex-basis: 12px;
+        margin: -6px 0 0 -6px;
         transition: none;
     }
 
-    .carousel-dot.is-active {
+    .carousel-dot.is-active::before {
         transform: none;
     }
 }
@@ -1328,6 +1419,7 @@ footer {
     margin: 0 1rem 0.5rem 1rem;
     font-family: 'Lato', sans-serif;
     font-size: 0.8rem;
+    color: var(--text-dim);
 }
 
 .description {
@@ -1441,14 +1533,6 @@ footer {
 }
 
 @media (max-width: 700px) {
-    .hero {
-        transition: transform 0.25s ease;
-    }
-
-    .hero.is-hidden {
-        transform: translateY(-100%);
-    }
-
     main.container > section {
         margin-bottom: 2.5rem;
     }
