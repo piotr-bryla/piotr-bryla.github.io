@@ -233,6 +233,7 @@ const projects = {
     balkanica: {
         title: "Balkanica",
         description: "EU4 mod that adds regional flavor to nations in the Balkans.",
+        featuredDescription: "EU4 mod that adds regional flavor to nations in the Balkans.",
         metric: "Runner up in regional flavor category during the official Modathon, over 1500 unique subscribers.",
         logo: {
             static: "images/blk.png",
@@ -251,6 +252,7 @@ const projects = {
     frosthaul: {
         title: "Frost Haul",
         description: "Co-op simulation game about moving cargo through a frozen wasteland.",
+        featuredDescription: "Co-op simulation game about moving cargo through a frozen wasteland.",
         logo: {
             static: "images/fhl.png",
             animated: "images/fhl.gif"
@@ -409,8 +411,10 @@ function initFeaturedProjectsCarousel() {
     }
 
     let activeIndex = 0;
+    let autoplayTimeout = null;
     const cards = [];
     const dots = [];
+    const autoplayDelay = 3500;
 
     function createCard(project) {
         const card = document.createElement("article");
@@ -550,9 +554,27 @@ function initFeaturedProjectsCarousel() {
         });
     }
 
+    function scheduleAutoplay() {
+        window.clearTimeout(autoplayTimeout);
+        autoplayTimeout = null;
+
+        if (
+            cards.length < 2 ||
+            document.hidden ||
+            carousel.matches(":focus-within")
+        ) {
+            return;
+        }
+
+        autoplayTimeout = window.setTimeout(() => {
+            goTo(activeIndex + 1);
+        }, autoplayDelay);
+    }
+
     function goTo(index) {
         activeIndex = (index + cards.length) % cards.length;
         render();
+        scheduleAutoplay();
     }
 
     function previous() {
@@ -578,6 +600,12 @@ function initFeaturedProjectsCarousel() {
             next();
         }
     });
+
+    carousel.addEventListener("mouseenter", scheduleAutoplay);
+    carousel.addEventListener("mouseleave", scheduleAutoplay);
+    carousel.addEventListener("focusin", scheduleAutoplay);
+    carousel.addEventListener("focusout", scheduleAutoplay);
+    document.addEventListener("visibilitychange", scheduleAutoplay);
 
     // Touch swipe navigation.
     let touchStartX = null;
@@ -619,6 +647,7 @@ function initFeaturedProjectsCarousel() {
     }
 
     render();
+    scheduleAutoplay();
 }
 
 initFeaturedProjectsCarousel();

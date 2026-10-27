@@ -179,7 +179,39 @@ async function renderProjectPage() {
     }
 }
 
-renderProjectPage();
+// Shrink the metadata blocks first, then switch to rows if still too wide.
+function updateMetaLayout() {
+    const grid = document.getElementById("project-meta");
+    if (!grid || !grid.children.length) return;
+
+    const contentWidth = () => {
+        const first = grid.firstElementChild.getBoundingClientRect();
+        const last = grid.lastElementChild.getBoundingClientRect();
+        return last.right - first.left;
+    };
+    const fits = () => contentWidth() <= grid.clientWidth + 0.5;
+
+    grid.classList.remove("is-rows");
+    grid.style.setProperty("--meta-scale", 1);
+
+    if (fits()) return;
+
+    // Shrink down to 75%; if it still doesn't fit, use rows.
+    const minScale = 0.75;
+    let scale = 1;
+    while (!fits() && scale > minScale) {
+        scale = Math.max(scale - 0.01, minScale);
+        grid.style.setProperty("--meta-scale", scale);
+    }
+
+    if (!fits()) {
+        grid.classList.add("is-rows");
+    }
+}
+
+renderProjectPage().then(updateMetaLayout);
+window.addEventListener("resize", updateMetaLayout);
+document.fonts?.ready.then(updateMetaLayout);
 </script>
 
 </body>
