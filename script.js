@@ -1,6 +1,7 @@
 const projects = {
     frsh: {
         title: "F.R.S.H.",
+        startDate: "2025-11",
         description: "Boomer shooter about a butcher robot in a radioactive wasteland.",
         logo: {
             static: "images/frsh.png",
@@ -23,6 +24,7 @@ const projects = {
     },
     ss13: {
         title: "TGStation 13",
+        startDate: "2019-01",
         description: "Open-Source multiplayer social deduction roleplaying game set on a space station.",
         metric: "One of the largest open-source game projects, running for over 15 years with 60k pull requests.",
         logo: {
@@ -42,6 +44,7 @@ const projects = {
     },
     countdashula: {
         title: "Count Dashula",
+        startDate: "2024-05",
         description: "2D platformer about a vampire dashing away from the Sun.",
         logo: {
             static: "images/cnt.png",
@@ -59,6 +62,7 @@ const projects = {
     },
     voita: {
         title: "Voita",
+        startDate: "2026-01",
         description: "Mobile stealth horror game where you play as the monster hunting the crew of a space station.",
         logo: {
             static: "images/voita.png",
@@ -76,6 +80,7 @@ const projects = {
     },
     wastemancer: {
         title: "Wastemancer",
+        startDate: "2025-10",
         description: "Arcade game about a magical raccoon spellcasting to rid the world of waste.",
         logo: {
             static: "images/wst.png",
@@ -93,6 +98,7 @@ const projects = {
     },
     parasozhyt: {
         title: "Parasozhyt",
+        startDate: "2025-10",
         description: "Timer-based corridor shooter about a dying parasite constantly swapping between hosts.",
         metric: "1st place at Futuregames Jam 2025.",
         logo: {
@@ -113,6 +119,7 @@ const projects = {
     },
     castlescapade: {
         title: "Castlescapade",
+        startDate: "2025-04",
         description: "2D platformer about a thief robbing a falling-apart castle and escaping with the loot.",
         logo: {
             static: "images/cstl.png",
@@ -131,6 +138,7 @@ const projects = {
     },
     lichstorment: {
         title: "Lich's Torment",
+        startDate: "2025-05",
         description: "Endless arena shooter about a wizard fighting hordes of skulls.",
         logo: {
             static: "images/lich.png",
@@ -147,22 +155,9 @@ const projects = {
             { label: "Combat Design", class: "tag-combat" },
         ]
     },
-    boardgames: {
-        title: "Board Games",
-        description: "Various board game designs.",
-        logo: {
-            static: "images/brd.png",
-            animated: "images/brd.png"
-        },
-        link: "",
-        groupSize: "1-4",
-        engine: "Life/Tabletop Sim",
-        tags: [
-            { label: "System Design", class: "tag-systems" },
-        ]
-    },
     greg: {
         title: "Greg the Frog: Burning Escape",
+        startDate: "2025-10",
         description: "3D platformer where I helped fine-tune the controls to feel good.",
         metric: "1st place at Futuregames Warsaw GP1 Jury Day.",
         logo: {
@@ -181,6 +176,7 @@ const projects = {
     },
     barreland: {
         title: "Barreland",
+        startDate: "2025-09",
         description: "Small arcade game made to learn Unity.",
         logo: {
             static: "images/brl.png",
@@ -198,6 +194,7 @@ const projects = {
     },
     gyruss: {
         title: "Gyruss Remake",
+        startDate: "2024-12",
         description: "Remake of a 1983 arcade game to learn Unreal Engine.",
         logo: {
             static: "images/grs.png",
@@ -215,6 +212,7 @@ const projects = {
     },
     diggy: {
         title: "Diggy and the Forgotten Caves",
+        startDate: "2025-02",
         description: "2D platformer where I did minor character controller contributions and VFX.",
         logo: {
             static: "images/dgg.png",
@@ -232,6 +230,7 @@ const projects = {
     },
     balkanica: {
         title: "Balkanica",
+        startDate: "2025-03",
         description: "EU4 mod that adds regional flavor to nations in the Balkans.",
         featuredDescription: "EU4 mod that adds regional flavor to nations in the Balkans.",
         metric: "Runner up in regional flavor category during the official Modathon, over 1500 unique subscribers.",
@@ -251,6 +250,7 @@ const projects = {
     },
     frosthaul: {
         title: "Frost Haul",
+        startDate: "2026-04",
         description: "Co-op simulation game about moving cargo through a frozen wasteland.",
         featuredDescription: "Co-op simulation game about moving cargo through a frozen wasteland.",
         logo: {
@@ -270,6 +270,7 @@ const projects = {
     },
     jupiter: {
         title: "Jupiter Shines On You",
+        startDate: "2026-08",
         description: "On-rails shooter bullet hell about conquering all the avatars of the gods.",
         logo: {
             static: "images/jsoy.png",
@@ -288,6 +289,7 @@ const projects = {
     },
     dontmindme: {
         title: "Don't Mind Me",
+        startDate: "2026-09",
         description: "A stealth-action game about a mimic protecting its dungeon from a D&D party.",
         metric: "Winner at Futuregames Warsaw GP4 Jury Day.",
         logo: {
@@ -306,8 +308,6 @@ const projects = {
         ]
     },
 };
-
-
 
 /* ========================================
    ALL PROJECTS GRID
@@ -328,7 +328,6 @@ function renderProjects(containerId, projectKeys) {
                     data-animated="${proj.logo.animated}"
                     class="project-image"
                     alt="${proj.title}"
-                    loading="lazy"
                 >
 
                 <div class="project-info">
@@ -368,7 +367,7 @@ function renderProjects(containerId, projectKeys) {
                         <a
                             href="project.html?id=${encodeURIComponent(key)}"
                             class="read-more"
-                        >Read More ></a>
+                        >Read More ▸</a>
                     </div>`
                     : ""}
             </article>
@@ -376,7 +375,66 @@ function renderProjects(containerId, projectKeys) {
     }).join("");
 }
 
-renderProjects("all-projects", Object.keys(projects));
+// Project ordering controls.
+const sortButtons = document.querySelectorAll(".sort-button");
+const sortState = { by: "date", ascending: false };
+
+function sortedProjectKeys() {
+    const keys = Object.keys(projects);
+
+    if (!sortState.by) return keys;
+
+    const direction = sortState.ascending ? 1 : -1;
+
+    return keys.sort((a, b) => {
+        const first = projects[a];
+        const second = projects[b];
+        let result;
+
+        if (sortState.by === "date") {
+            result = first.startDate.localeCompare(second.startDate);
+        } else if (sortState.by === "size") {
+            // Sizes like "30~" or "1-4" sort by their leading number.
+            result = parseInt(first.groupSize, 10) -
+                parseInt(second.groupSize, 10);
+        } else {
+            result = first.title.localeCompare(second.title, undefined, {
+                sensitivity: "base"
+            });
+        }
+
+        return (result || first.title.localeCompare(second.title)) * direction;
+    });
+}
+
+renderProjects("all-projects", sortedProjectKeys());
+
+sortButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const by = button.dataset.sort;
+
+        if (sortState.by === by) {
+            sortState.ascending = !sortState.ascending;
+        } else {
+            sortState.by = by;
+            sortState.ascending = true;
+        }
+
+        renderProjects("all-projects", sortedProjectKeys());
+        setupMobileGifs();
+
+        sortButtons.forEach(other => {
+            const active = other === button;
+            const arrow = other.querySelector(".sort-arrow");
+
+            other.classList.toggle("is-active", active);
+            other.setAttribute("aria-pressed", String(active));
+            arrow.textContent = active
+                ? (sortState.ascending ? "▲" : "▼")
+                : "=";
+        });
+    });
+});
 
 
 /* ========================================
@@ -464,7 +522,7 @@ function initFeaturedProjectsCarousel() {
             readMore.className = "read-more";
             readMore.href =
                 `project.html?id=${encodeURIComponent(project.key)}`;
-            readMore.textContent = "Read More >";
+            readMore.textContent = "Read More ▶";
 
             actions.appendChild(readMore);
         }
@@ -495,23 +553,30 @@ function initFeaturedProjectsCarousel() {
         dot.type = "button";
         dot.className = "carousel-dot";
         dot.setAttribute("aria-label", `Show ${project.title}`);
-        dot.addEventListener("click", () => goTo(index));
+        dot.addEventListener("click", () =>
+            goTo(index, index > activeIndex ? 1 : -1)
+        );
 
         dotsContainer.appendChild(dot);
         dots.push(dot);
     });
 
-    function render() {
+    function render(direction = 0) {
         const total = cards.length;
         const previousIndex = (activeIndex - 1 + total) % total;
         const nextIndex = (activeIndex + 1) % total;
+        const isMobile = window.matchMedia("(max-width: 700px)").matches;
+        const oldActive = cards.findIndex(card =>
+            card.classList.contains("is-active")
+        );
+        const slides = isMobile && direction !== 0 &&
+            oldActive !== -1 && oldActive !== activeIndex;
+
+        const targets = [];
 
         cards.forEach((card, index) => {
-            card.classList.remove(
-                "is-active", "is-prev", "is-next", "is-hidden"
-            );
-
             const image = card.querySelector(".carousel-visual img");
+            let target;
 
             if (index === activeIndex) {
                 if (
@@ -520,7 +585,7 @@ function initFeaturedProjectsCarousel() {
                     image.src = image.dataset.animated;
                 }
 
-                card.classList.add("is-active");
+                target = "is-active";
                 card.setAttribute("aria-hidden", "false");
             } else {
                 if (
@@ -531,15 +596,72 @@ function initFeaturedProjectsCarousel() {
 
                 card.setAttribute("aria-hidden", "true");
 
-                if (index === previousIndex) {
-                    card.classList.add("is-prev");
+                if (slides && index === oldActive) {
+                    // The outgoing card exits opposite to the click direction.
+                    target = direction > 0 ? "is-prev" : "is-next";
+                } else if (index === previousIndex) {
+                    target = "is-prev";
                 } else if (index === nextIndex) {
-                    card.classList.add("is-next");
+                    target = "is-next";
                 } else {
-                    card.classList.add("is-hidden");
+                    target = "is-hidden";
                 }
             }
+
+            targets.push(target);
         });
+
+        // On mobile only the incoming and outgoing cards animate; all others
+        // are repositioned instantly so they never sweep across the screen.
+        const states = ["is-active", "is-prev", "is-next", "is-hidden"];
+
+        cards.forEach((card, index) => {
+            const animated = slides &&
+                (index === activeIndex || index === oldActive);
+
+            if (isMobile && !animated) {
+                card.classList.add("no-transition");
+            }
+
+            if (slides && index === activeIndex) {
+                // Only jump the incoming card to its entry side when it isn't
+                // already there, so a card mid-slide keeps moving smoothly.
+                const entry = direction > 0 ? "is-next" : "is-prev";
+
+                if (!card.classList.contains(entry)) {
+                    card.classList.add("no-transition");
+                    card.classList.remove(...states);
+                    card.classList.add(entry);
+                }
+            } else if (!slides || !animated) {
+                card.classList.remove(...states);
+                card.classList.add(targets[index]);
+            }
+        });
+
+        void stage.offsetWidth;
+
+        cards.forEach((card, index) => {
+            const animated = slides &&
+                (index === activeIndex || index === oldActive);
+
+            if (animated) {
+                card.classList.remove("no-transition");
+            }
+        });
+
+        void stage.offsetWidth;
+
+        cards.forEach((card, index) => {
+            if (slides && (index === activeIndex || index === oldActive)) {
+                card.classList.remove(...states);
+                card.classList.add(targets[index]);
+            }
+        });
+
+        void stage.offsetWidth;
+
+        cards.forEach(card => card.classList.remove("no-transition"));
 
         dots.forEach((dot, index) => {
             const isActive = index === activeIndex;
@@ -566,23 +688,28 @@ function initFeaturedProjectsCarousel() {
             return;
         }
 
-        autoplayTimeout = window.setTimeout(() => {
-            goTo(activeIndex + 1);
-        }, autoplayDelay);
+        autoplayTimeout = window.setTimeout(next, autoplayDelay);
     }
 
-    function goTo(index) {
+    let lastGoTo = 0;
+
+    function goTo(index, direction = 0) {
+        // Ignore duplicate events fired by a single tap.
+        const now = performance.now();
+        if (now - lastGoTo < 120) return;
+        lastGoTo = now;
+
         activeIndex = (index + cards.length) % cards.length;
-        render();
+        render(direction);
         scheduleAutoplay();
     }
 
     function previous() {
-        goTo(activeIndex - 1);
+        goTo(activeIndex - 1, -1);
     }
 
     function next() {
-        goTo(activeIndex + 1);
+        goTo(activeIndex + 1, 1);
     }
 
     const previousButton = carousel.querySelector(".carousel-prev");
@@ -721,6 +848,22 @@ document.addEventListener("mouseout", (e) => {
 
 setupMobileGifs();
 mobileQuery.addEventListener("change", setupMobileGifs);
+
+// The window load event waits for every static image, so the GIFs only
+// start downloading once all of those have finished.
+const preloadedGifs = [];
+
+window.addEventListener("load", () => {
+    const urls = new Set(
+        Object.values(projects).map(project => project.logo.animated)
+    );
+
+    urls.forEach(url => {
+        const image = new Image();
+        image.src = url;
+        preloadedGifs.push(image);
+    });
+});
 const nameSpans = document.querySelectorAll("#name-header span[data-sound]");
 const mobileInput = window.matchMedia("(hover: none) and (pointer: coarse)");
 
@@ -759,6 +902,38 @@ function updateNameInteraction() {
 }
 
 mobileInput.addEventListener("change", updateNameInteraction);
+
+// Hide the sticky header while scrolling down on small screens.
+const narrowQuery = window.matchMedia("(max-width: 700px)");
+let lastScrollY = window.scrollY;
+let navScrolling = false;
+let navScrollTimer = null;
+
+window.addEventListener("scroll", () => {
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    const currentY = Math.max(window.scrollY, 0);
+
+    if (navScrolling) {
+        // Keep the header visible until the button-triggered scroll settles.
+        window.clearTimeout(navScrollTimer);
+        navScrollTimer = window.setTimeout(() => {
+            navScrolling = false;
+            lastScrollY = Math.max(window.scrollY, 0);
+        }, 150);
+        hero.classList.remove("is-hidden");
+    } else if (!narrowQuery.matches || currentY < hero.offsetHeight) {
+        hero.classList.remove("is-hidden");
+    } else if (currentY > lastScrollY + 4) {
+        hero.classList.add("is-hidden");
+    } else if (currentY < lastScrollY - 4) {
+        hero.classList.remove("is-hidden");
+    }
+
+    lastScrollY = currentY;
+}, { passive: true });
+
 function scrollToSection(id) {
     const section = document.getElementById(id);
     const hero = document.querySelector(".hero");
@@ -772,8 +947,16 @@ function scrollToSection(id) {
     const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
 
     // Scroll so the section sits just below the sticky header
+    const offset = heroHeight;
+    navScrolling = true;
+    hero.classList.remove("is-hidden");
+    window.clearTimeout(navScrollTimer);
+    navScrollTimer = window.setTimeout(() => {
+        navScrolling = false;
+    }, 150);
+
     window.scrollTo({
-        top: sectionTop - heroHeight,
+        top: sectionTop - offset,
         behavior: 'smooth'
     });
 }
