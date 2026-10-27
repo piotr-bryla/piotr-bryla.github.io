@@ -321,7 +321,7 @@ function renderProjects(containerId, projectKeys) {
         const proj = projects[key];
 
         return `
-            <article class="project-card">
+            <article class="project-card" ${proj.link ? `data-link="${proj.link}"` : ""}>
                 <img
                     src="${proj.logo.static}"
                     data-static="${proj.logo.static}"
@@ -348,6 +348,12 @@ function renderProjects(containerId, projectKeys) {
                             ${proj.engine} ${engineSVG(proj.engine)}
                         </span>
                     </h3>
+
+                    ${proj.timeframe
+                        ? `<h3>
+                            <span class="project-meta">${proj.timeframe}</span>
+                        </h3>`
+                        : ""}
 
                     <div class="tags">
                         ${proj.tags.map(tag =>
@@ -844,6 +850,13 @@ document.addEventListener("mouseout", (e) => {
     if (!card || card.contains(e.relatedTarget)) return;
 
     setImageToStatic(card.querySelector(".project-image"));
+});
+
+document.addEventListener("click", (e) => {
+    const card = e.target.closest(".project-card[data-link]");
+    if (!card || e.target.closest("a")) return;
+
+    window.open(card.dataset.link, "_blank", "noopener");
 });
 
 setupMobileGifs();
