@@ -1259,7 +1259,7 @@ a[href^="mailto:"] {
     }
 
     .carousel-description {
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.5;
         opacity: 1;
     }
@@ -1551,5 +1551,9 @@ a[href^="mailto:"] {
 
     .project-grid {
         gap: 2.5rem;
+    }
+
+    .project-card .description {
+        font-size: 0.95rem;
     }
 }

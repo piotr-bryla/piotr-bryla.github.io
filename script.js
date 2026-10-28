@@ -14,7 +14,7 @@ const projects = {
             Inspired by the weapons of _Team Fortress 2_, the movement of _Quake_, and the design philosophy of _Ultrakill_, \
             _F.R.S.H_. has the player slay mutated farm animals with a *boomerang cleaver* and a recoil-packed *double-barrel*. \
             Players have to *chain their weapons* as the function of each one complements the other.\n\
-            Features: \n\
+            *Features:* \n\
             - Custom character controller with Source-inspired physics \n\
             - A double-barreled shotgun used for propulsion \n\
             - A boomerang cleaver that ricochets off surfaces \n\
