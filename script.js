@@ -2,12 +2,12 @@ const projects = {
     frsh: {
         title: "F.R.S.H.",
         startDate: "2025-11",
-        description: "Fast-paced retro shooter where the player clears a radioactive wasteland with a shotgun and boomerang cleaver.",
+        description: "Boomer shooter about a butcher robot in a radioactive wasteland.",
         logo: {
             static: "images/frsh.png",
             animated: "images/frsh.gif"
         },
-        featuredDescription: "Solo-developed fast-paced boomer shooter focused on responsive movement, impactful combat, and satisfying game feel.",
+        featuredDescription: "A fast-paced boomer shooter focused on responsive movement, impactful combat, and satisfying game feel.",
         contentFile: "project-content/frsh.html",
         link: "https://fikou.itch.io/frsh",
         groupSize: 1,
@@ -25,7 +25,7 @@ const projects = {
     ss13: {
         title: "TGStation 13",
         startDate: "2019-01",
-        description: "Open-source multiplayer round-based roleplaying game where players take the role of a space station's crew. Project maintainer since 2022.",
+        description: "Open-Source multiplayer social deduction roleplaying game set on a space station.",
         metric: "One of the largest open-source game projects, running for over 15 years with 60k pull requests.",
         logo: {
             static: "images/ss13.png",
