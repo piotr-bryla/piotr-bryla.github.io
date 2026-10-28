@@ -2,12 +2,14 @@ const projects = {
     frsh: {
         title: "F.R.S.H.",
         startDate: "2025-11",
-        description: "Boomer shooter about a butcher robot in a radioactive wasteland.",
+        description: "Solo-developed an FPS with Source-inspired movement \
+            and combat built around chaining a boomerang cleaver and shotgun. \
+            Features a test arena and one level including a tutorial.",
         logo: {
             static: "images/frsh.png",
             animated: "images/frsh.gif"
         },
-        featuredDescription: "A fast-paced boomer shooter focused on responsive movement, impactful combat, and satisfying game feel.",
+        featuredDescription: "Solo-developed fast-paced boomer shooter focused on responsive movement, impactful combat, and satisfying game feel.",
         contentFile: "project-content/frsh.html",
         link: "https://fikou.itch.io/frsh",
         groupSize: 1,
@@ -18,14 +20,15 @@ const projects = {
         tags: [
             { label: "3Cs", class: "tag-3cs" },
             { label: "Combat Design", class: "tag-combat" },
-            { label: "System Design", class: "tag-systems" },
             { label: "Level Design", class: "tag-level" },
         ]
     },
     ss13: {
         title: "TGStation 13",
         startDate: "2019-01",
-        description: "Open-Source multiplayer social deduction roleplaying game set on a space station.",
+        description: "An open-source, round-based multiplayer roleplaying game set aboard a space station. \
+            Contributing since 2019 and maintaining the project since 2022, reviewing pull requests, \
+            shaping design direction, and helping onboard new contributors.",
         metric: "One of the largest open-source game projects, running for over 15 years with 60k pull requests.",
         logo: {
             static: "images/ss13.png",
@@ -45,7 +48,8 @@ const projects = {
     countdashula: {
         title: "Count Dashula",
         startDate: "2024-05",
-        description: "2D platformer about a vampire dashing away from the Sun.",
+        description: "First solo project, featuring a platformer character controller with mouse-based dashing, \
+            as well as three unique levels. Developed over two weeks while learning the engine.",
         logo: {
             static: "images/cnt.png",
             animated: "images/cnt.gif"
@@ -63,7 +67,8 @@ const projects = {
     voita: {
         title: "Voita",
         startDate: "2026-01",
-        description: "Mobile stealth horror game where you play as the monster hunting the crew of a space station.",
+        description: "Led a team of 5 designers in a student project, a mobile reverse-horror game \
+            about an evolving monster. Wrote down the GDD, designed core systems and cooperated with programmers on implementing them.",
         logo: {
             static: "images/voita.png",
             animated: "images/voita.gif"
@@ -81,7 +86,8 @@ const projects = {
     wastemancer: {
         title: "Wastemancer",
         startDate: "2025-10",
-        description: "Arcade game about a magical raccoon spellcasting to rid the world of waste.",
+        description: "Worked in a team of 5 designers on a student project, an arcade game where a \
+            magical raccoon cleans the world of trash. Designed the spellcasting system and created half of the game's sounds.",
         logo: {
             static: "images/wst.png",
             animated: "images/wst.gif"
@@ -99,7 +105,8 @@ const projects = {
     parasozhyt: {
         title: "Parasozhyt",
         startDate: "2025-10",
-        description: "Timer-based corridor shooter about a dying parasite constantly swapping between hosts.",
+        description: "Worked in a team of designers on a game jam, implementing the character controller and weapons \
+            in a corridor shooter where a dying parasite has to constantly swap between hosts.",
         metric: "1st place at Futuregames Jam 2025.",
         logo: {
             static: "images/prsz.png",
@@ -120,7 +127,9 @@ const projects = {
     castlescapade: {
         title: "Castlescapade",
         startDate: "2025-04",
-        description: "2D platformer about a thief robbing a falling-apart castle and escaping with the loot.",
+        description: "Solo-developed a platformer themed around greed, with a castle to rob while it falls apart, \
+            changing itself, and a movement system based on sliding which gives speed while taking away control. \
+            Implemented my first metrics gym.",
         logo: {
             static: "images/cstl.png",
             animated: "images/cstl.gif"
@@ -139,7 +148,9 @@ const projects = {
     lichstorment: {
         title: "Lich's Torment",
         startDate: "2025-05",
-        description: "Endless arena shooter about a wizard fighting hordes of skulls.",
+        description: "Worked in a team of 3 designers on a student project, an arena shooter \
+            with a wizard trying to survive a lich's endless hordes. Designed 3Cs, wrote feature specs for programmers and artists, \
+            implemented player attacks, VFX, and a system showing dangers behind you.",
         logo: {
             static: "images/lich.png",
             animated: "images/lich.gif"
@@ -158,7 +169,8 @@ const projects = {
     greg: {
         title: "Greg the Frog: Burning Escape",
         startDate: "2025-10",
-        description: "3D platformer where I helped fine-tune the controls to feel good.",
+        description: "Co-operated with the designers on reworking the movement for a \
+            student project, a speedrunning game about a frog with a grappling hook tongue.",
         metric: "1st place at Futuregames Warsaw GP1 Jury Day.",
         logo: {
             static: "images/grg.png",
@@ -177,7 +189,8 @@ const projects = {
     barreland: {
         title: "Barreland",
         startDate: "2025-09",
-        description: "Small arcade game made to learn Unity.",
+        description: "Solo-developed a project to learn Unity, an arcade game where the player has to \
+            precisely throw exploding barrels at infinitely spawning enemy hordes.",
         logo: {
             static: "images/brl.png",
             animated: "images/brl.gif"
@@ -195,7 +208,8 @@ const projects = {
     gyruss: {
         title: "Gyruss Remake",
         startDate: "2024-12",
-        description: "Remake of a 1983 arcade game to learn Unreal Engine.",
+        description: "Solo-developed a project to learn Unreal Engine, a remake of the 1983's Konami classic, \
+            researched and analyzed parts of the game to the exact frame to recreate them accurately.",
         logo: {
             static: "images/grs.png",
             animated: "images/grs.gif"
@@ -213,7 +227,8 @@ const projects = {
     diggy: {
         title: "Diggy and the Forgotten Caves",
         startDate: "2025-02",
-        description: "2D platformer where I did minor character controller contributions and VFX.",
+        description: "Worked in a designer-only student team on a 2D platformer with a mole digging through dirt. \
+            Contributed to the character controller, made a level one-pager, and made the projects's VFX.",
         logo: {
             static: "images/dgg.png",
             animated: "images/dgg.gif"
@@ -231,7 +246,8 @@ const projects = {
     balkanica: {
         title: "Balkanica",
         startDate: "2025-03",
-        description: "EU4 mod that adds regional flavor to nations in the Balkans.",
+        description: "Worked with another designer on an EU4 mod for the official Modathon. \
+            Learned scripting in Clausewitz, researched early-modern Balkan history and designed over 30 unique quests.",
         featuredDescription: "EU4 mod that adds regional flavor to nations in the Balkans.",
         metric: "Runner up in regional flavor category during the official Modathon, over 1500 unique subscribers.",
         logo: {
@@ -251,7 +267,9 @@ const projects = {
     frosthaul: {
         title: "Frost Haul",
         startDate: "2026-04",
-        description: "Co-op simulation game about moving cargo through a frozen wasteland.",
+        description: "Led a team of 4 designers in a student project, a co-op simulation game about delivering cargo \
+            on a falling-apart train in a frozen wasteland. Decided the core pillars, wrote down the GDD, \
+            designed and implemented the character controller and game feel.",
         featuredDescription: "Co-op simulation game about moving cargo through a frozen wasteland.",
         logo: {
             static: "images/fhl.png",
@@ -271,7 +289,9 @@ const projects = {
     jupiter: {
         title: "Jupiter Shines On You",
         startDate: "2026-08",
-        description: "On-rails shooter bullet hell about conquering all the avatars of the gods.",
+        description: "Worked in a designer-only student team on an on-rails shooter combined with a bullet hell. \
+            Designed and implemented the character controller, parrying, two firing modes, the level auto-scroll, \
+            and the system of grazing against bullets used to fly and cast powerful spells.",
         logo: {
             static: "images/jsoy.png",
             animated: "images/jsoy.gif"
@@ -290,8 +310,10 @@ const projects = {
     dontmindme: {
         title: "Don't Mind Me",
         startDate: "2026-09",
-        description: "A stealth-action game about a mimic protecting its dungeon from a D&D party.",
-        metric: "Winner at Futuregames Warsaw GP4 Jury Day.",
+        description: "Worked in a team of 5 designers on a student project, a stealth-action game about a mimic defending \
+            its hoard from an adventuring party. Designed and implemented the character controller, featuring an extendable tongue used for \
+            combat, interaction, and traversal.",
+        metric: "Winner at Futuregames Warsaw GP4 Jury Day. Character was highlighted by the jury as a standout part of the game.",
         logo: {
             static: "images/dmm.png",
             animated: "images/dmm.gif"
