@@ -45,6 +45,9 @@ const projects = {
             static: "images/ss13.png",
             animated: "images/ss13.gif"
         },
+        featuredDescription: "\
+            WIP \n\
+        ",
         link: "https://tgstation13.org/",
         groupSize: "30~",
         engine: "BYOND",
@@ -259,7 +262,6 @@ const projects = {
         startDate: "2025-03",
         description: "Worked with another designer on an EU4 mod for the official Modathon. \
             Learned scripting in Clausewitz, researched early-modern Balkan history and designed over 30 unique quests.",
-        featuredDescription: "EU4 mod that adds regional flavor to nations in the Balkans.",
         metric: "Runner up in regional flavor category during the official Modathon, over 1500 unique subscribers.",
         logo: {
             static: "images/blk.png",
@@ -281,7 +283,6 @@ const projects = {
         description: "Led a team of 4 designers in a student project, a co-op simulation game about delivering cargo \
             on a falling-apart train in a frozen wasteland. Decided the core pillars, wrote down the GDD, \
             designed and implemented the character controller and game feel.",
-        featuredDescription: "Co-op simulation game about moving cargo through a frozen wasteland.",
         logo: {
             static: "images/fhl.png",
             animated: "images/fhl.gif"
@@ -329,6 +330,9 @@ const projects = {
             static: "images/dmm.png",
             animated: "images/dmm.gif"
         },
+        featuredDescription: "\
+            WIP \n\
+        ",
         link: "https://futuregames.itch.io/dontmindme",
         groupSize: 8,
         engine: "Unreal",
@@ -521,7 +525,7 @@ function initFeaturedProjectsCarousel() {
     let autoplayTimeout = null;
     const cards = [];
     const dots = [];
-    const autoplayDelay = 3500;
+    const autoplayDelay = 5000;
 
     function createCard(project) {
         const card = document.createElement("article");
