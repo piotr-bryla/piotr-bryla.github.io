@@ -9,7 +9,18 @@ const projects = {
             static: "images/frsh.png",
             animated: "images/frsh.gif"
         },
-        featuredDescription: "Solo-developed fast-paced boomer shooter focused on responsive movement, impactful combat, and satisfying game feel.",
+        featuredDescription: "\
+            Solo-developed *retro FPS* game over the course of a month for a level design assignment at _Futuregames_. \n\
+            Inspired by the weapons of _Team Fortress 2_, the movement of _Quake_, and the design philosophy of _Ultrakill_, \
+            _F.R.S.H_. has the player slay mutated farm animals with a *boomerang cleaver* and a recoil-packed *double-barrel*. \
+            Players have to *chain their weapons* as the function of each one complements the other.\n\
+            Features: \n\
+            - Custom character controller with Source-inspired physics \n\
+            - A double-barreled shotgun used for propulsion \n\
+            - A boomerang cleaver that ricochets off surfaces \n\
+            - Three enemies, melee, hitscan and projectile ranged \n\
+            - One level featuring a tutorial and a testing combat arena \n\
+        ",
         contentFile: "project-content/frsh.html",
         link: "https://fikou.itch.io/frsh",
         groupSize: 1,
@@ -536,20 +547,51 @@ function initFeaturedProjectsCarousel() {
         title.className = "carousel-title";
         title.textContent = project.title;
 
-        const meta = document.createElement("div");
-        meta.className = "carousel-meta";
-        meta.innerHTML = [
-            project.groupSize == 1 ? "Solo" : "Team of " + project.groupSize,
-            `${project.engine} ${engineSVG(project.engine)}`,
-            project.timeframe
-        ].filter(Boolean)
-            .map(text => `<span class="carousel-meta-item">${text}</span>`)
-            .join("");
+        // Plain text with *bold* and _italic_, built without innerHTML.
+        const appendInline = (parent, text) => {
+            text.split(/(\*.+?\*|_.+?_)/g).forEach(part => {
+                if (!part) return;
+                const boldMatch = part.match(/^\*(.+)\*$/);
+                const italicMatch = part.match(/^_(.+)_$/);
+                if (boldMatch) {
+                    const strong = document.createElement("b");
+                    strong.textContent = boldMatch[1];
+                    parent.append(strong);
+                } else if (italicMatch) {
+                    const em = document.createElement("i");
+                    em.textContent = italicMatch[1];
+                    parent.append(em);
+                } else {
+                    parent.append(part);
+                }
+            });
+        };
 
         // Use the dedicated featured description, not the grid description.
-        const description = document.createElement("p");
+        const description = document.createElement("div");
         description.className = "carousel-description";
-        description.textContent = project.featuredDescription.trim();
+        let list = null;
+        project.featuredDescription.trim().split("\n").forEach(rawLine => {
+            const line = rawLine.trim();
+            if (!line) {
+                list = null;
+                return;
+            }
+            if (line.startsWith("- ")) {
+                if (!list) {
+                    list = document.createElement("ul");
+                    description.append(list);
+                }
+                const item = document.createElement("li");
+                appendInline(item, line.slice(2));
+                list.append(item);
+            } else {
+                list = null;
+                const paragraph = document.createElement("p");
+                appendInline(paragraph, line);
+                description.append(paragraph);
+            }
+        });
 
 
         const details = document.createElement("div");
@@ -579,7 +621,7 @@ function initFeaturedProjectsCarousel() {
 
         const heading = document.createElement("div");
         heading.className = "carousel-heading";
-        heading.append(title, meta);
+        heading.append(title);
 
         info.append(heading, description, actions);
         card.append(visual, info);
