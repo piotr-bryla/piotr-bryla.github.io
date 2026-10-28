@@ -303,7 +303,7 @@ const projects = {
         startDate: "2026-08",
         description: "Worked in a designer-only student team on an on-rails shooter combined with a bullet hell. \
             Designed and implemented the character controller, parrying, two firing modes, the level auto-scroll, \
-            and the system of grazing against bullets used to fly and cast powerful spells.",
+            and the system of grazing against bullets to charge flight and powerful spells.",
         logo: {
             static: "images/jsoy.png",
             animated: "images/jsoy.gif"
@@ -413,13 +413,13 @@ function renderProjects(containerId, projectKeys) {
                                 class="read-more"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                            >Play ▶</a>`
+                            >Play ▶&#xFE0E;</a>`
                             : ""}
                         ${proj.contentFile
                             ? `<a
                                 href="project.html?id=${encodeURIComponent(key)}"
                                 class="read-more"
-                            >Read More ▶</a>`
+                            >Read More ▶&#xFE0E;</a>`
                             : ""}
                     </div>`
                     : ""}
@@ -483,7 +483,7 @@ sortButtons.forEach(button => {
             other.classList.toggle("is-active", active);
             other.setAttribute("aria-pressed", String(active));
             arrow.textContent = active
-                ? (sortState.ascending ? "▲" : "▼")
+                ? (sortState.ascending ? "▲\uFE0E" : "▼\uFE0E")
                 : "=";
         });
     });
@@ -616,7 +616,7 @@ function initFeaturedProjectsCarousel() {
             readMore.className = "read-more";
             readMore.href =
                 `project.html?id=${encodeURIComponent(project.key)}`;
-            readMore.textContent = "Read More ▶";
+            readMore.textContent = "Read More ▶\uFE0E";
 
             actions.appendChild(readMore);
         }
