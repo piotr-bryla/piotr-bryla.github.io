@@ -1,6 +1,7 @@
 const projects = {
     frsh: {
         title: "F.R.S.H.",
+        carouselPriority: 2,
         startDate: "2025-11",
         description: "Solo-developed an FPS with Source-inspired movement \
             and combat built around chaining a boomerang cleaver and shotgun. \
@@ -36,6 +37,7 @@ const projects = {
     },
     ss13: {
         title: "TGStation 13",
+        carouselPriority: 1,
         startDate: "2019-01",
         description: "An open-source, round-based multiplayer roleplaying game set aboard a space station. \
             Contributing since 2019 and maintaining the project since 2022, reviewing pull requests, \
@@ -56,7 +58,6 @@ const projects = {
         tags: [
             { label: "Project Maintainer", class: "tag-maint" },
             { label: "System Design", class: "tag-systems" },
-            { label: "Level Design", class: "tag-level" },
         ]
     },
     countdashula: {
@@ -134,7 +135,6 @@ const projects = {
         role: "Systems/3Cs/Sound Designer",
         tags: [
             { label: "3Cs", class: "tag-3cs" },
-            { label: "System Design", class: "tag-systems" },
             { label: "Combat Design", class: "tag-combat" },
         ]
     },
@@ -300,6 +300,7 @@ const projects = {
     },
     jupiter: {
         title: "Jupiter Shines On You",
+        carouselPriority: 3,
         startDate: "2026-08",
         description: "Worked in a designer-only student team on an on-rails shooter combined with a bullet hell. \
             Designed and implemented the character controller, parrying, two firing modes, the level auto-scroll, \
@@ -358,14 +359,19 @@ function renderProjects(containerId, projectKeys) {
         const proj = projects[key];
 
         return `
-            <article class="project-card">
-                <img
-                    src="${proj.logo.static}"
-                    data-static="${proj.logo.static}"
-                    data-animated="${proj.logo.animated}"
-                    class="project-image"
-                    alt="${proj.title}"
-                >
+            ${proj.contentFile
+                ? `<a
+                    href="project.html?id=${encodeURIComponent(key)}"
+                    class="project-card"
+                >`
+                : `<article class="project-card">`}
+                    <img
+                        src="${proj.logo.static}"
+                        data-static="${proj.logo.static}"
+                        data-animated="${proj.logo.animated}"
+                        class="project-image"
+                        alt="${proj.title}"
+                    >
 
                 <div class="project-info">
                     <h3>
@@ -405,25 +411,10 @@ function renderProjects(containerId, projectKeys) {
                     ? `<p class="metric">${proj.metric}</p>`
                     : ""}
 
-                ${proj.link || proj.contentFile
-                    ? `<div class="project-card-actions">
-                        ${proj.link
-                            ? `<a
-                                href="${proj.link}"
-                                class="read-more"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >Play ▶&#xFE0E;</a>`
-                            : ""}
-                        ${proj.contentFile
-                            ? `<a
-                                href="project.html?id=${encodeURIComponent(key)}"
-                                class="read-more"
-                            >Read More ▶&#xFE0E;</a>`
-                            : ""}
-                    </div>`
+                ${proj.contentFile
+                    ? `<span class="project-card-cta" aria-hidden="true">READ MORE</span>`
                     : ""}
-            </article>
+            ${proj.contentFile ? "</a>" : "</article>"}
         `;
     }).join("");
 }
@@ -501,16 +492,14 @@ function initFeaturedProjectsCarousel() {
 
     if (!carousel || !stage || !dotsContainer) return;
 
-    // Only projects with a non-empty featuredDescription are featured.
+    // Projects with a carousel priority are ordered explicitly.
     const featuredProjects = Object.entries(projects)
-        .filter(([key, project]) =>
-            typeof project.featuredDescription === "string" &&
-            project.featuredDescription.trim().length > 0
-        )
+        .filter(([, project]) => Number.isFinite(project.carouselPriority))
         .map(([key, project]) => ({
             key,
             ...project
-        }));
+        }))
+        .sort((a, b) => a.carouselPriority - b.carouselPriority);
 
     // Hide the entire section when no projects are featured.
     if (featuredProjects.length === 0) {
@@ -542,7 +531,16 @@ function initFeaturedProjectsCarousel() {
         image.loading = "eager";
         image.decoding = "async";
 
-        visual.appendChild(image);
+        if (project.contentFile) {
+            const imageLink = document.createElement("a");
+            imageLink.href =
+                `project.html?id=${encodeURIComponent(project.key)}`;
+            imageLink.className = "carousel-image-link";
+            imageLink.appendChild(image);
+            visual.appendChild(imageLink);
+        } else {
+            visual.appendChild(image);
+        }
 
         const info = document.createElement("div");
         info.className = "carousel-info";
@@ -571,31 +569,33 @@ function initFeaturedProjectsCarousel() {
             });
         };
 
-        // Use the dedicated featured description, not the grid description.
         const description = document.createElement("div");
         description.className = "carousel-description";
         let list = null;
-        project.featuredDescription.trim().split("\n").forEach(rawLine => {
-            const line = rawLine.trim();
-            if (!line) {
-                list = null;
-                return;
-            }
-            if (line.startsWith("- ")) {
-                if (!list) {
-                    list = document.createElement("ul");
-                    description.append(list);
+        (project.featuredDescription || project.description)
+            .trim()
+            .split("\n")
+            .forEach(rawLine => {
+                const line = rawLine.trim();
+                if (!line) {
+                    list = null;
+                    return;
                 }
-                const item = document.createElement("li");
-                appendInline(item, line.slice(2));
-                list.append(item);
-            } else {
-                list = null;
-                const paragraph = document.createElement("p");
-                appendInline(paragraph, line);
-                description.append(paragraph);
-            }
-        });
+                if (line.startsWith("- ")) {
+                    if (!list) {
+                        list = document.createElement("ul");
+                        description.append(list);
+                    }
+                    const item = document.createElement("li");
+                    appendInline(item, line.slice(2));
+                    list.append(item);
+                } else {
+                    list = null;
+                    const paragraph = document.createElement("p");
+                    appendInline(paragraph, line);
+                    description.append(paragraph);
+                }
+            });
 
 
         const details = document.createElement("div");
@@ -1007,7 +1007,7 @@ function updateNameInteraction() {
 
 mobileInput.addEventListener("change", updateNameInteraction);
 
-// Hide the sticky header while scrolling down.
+const desktopQuery = window.matchMedia("(min-width: 1025px)");
 let lastScrollY = window.scrollY;
 let navScrolling = false;
 let navScrollTimer = null;
@@ -1018,7 +1018,9 @@ window.addEventListener("scroll", () => {
 
     const currentY = Math.max(window.scrollY, 0);
 
-    if (navScrolling) {
+    if (desktopQuery.matches) {
+        hero.classList.remove("is-hidden");
+    } else if (navScrolling) {
         // Keep the header visible until the button-triggered scroll settles.
         window.clearTimeout(navScrollTimer);
         navScrollTimer = window.setTimeout(() => {
@@ -1036,6 +1038,13 @@ window.addEventListener("scroll", () => {
 
     lastScrollY = currentY;
 }, { passive: true });
+
+desktopQuery.addEventListener("change", event => {
+    if (!event.matches) return;
+
+    document.querySelector(".hero")?.classList.remove("is-hidden");
+    lastScrollY = Math.max(window.scrollY, 0);
+});
 
 function scrollToSection(id) {
     const section = document.getElementById(id);
