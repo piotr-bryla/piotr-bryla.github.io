@@ -237,6 +237,23 @@ body > * {
     align-content: flex-end;
 }
 
+.return-page .footer {
+    display: none;
+}
+
+.return-page-content {
+    padding-bottom: 5rem;
+}
+
+.return-portfolio-nav {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    z-index: 10000;
+    transform: translateX(-50%);
+    margin-left: 0;
+}
+
 .blog-btn {
     background: var(--muted);
 }
@@ -318,6 +335,12 @@ a[href^="mailto:"] {
         align-self: stretch;
     }
 
+    .return-portfolio-nav {
+        flex: 0 0 auto;
+        margin-left: 0;
+        align-self: auto;
+    }
+
     .hero-nav button,
     .hero-nav .cv-btn,
     .hero-nav .blog-btn {
@@ -326,6 +349,12 @@ a[href^="mailto:"] {
         padding: 0.6rem 0.25rem;
         font-size: 0.65rem;
         letter-spacing: 0.5px;
+    }
+
+    .return-portfolio-nav .cv-btn {
+        flex: 0 0 auto;
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
     }
 }
 
